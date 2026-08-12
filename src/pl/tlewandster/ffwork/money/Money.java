@@ -13,8 +13,12 @@ public record Money(BigDecimal amount) {
         amount = amount.setScale(2, RoundingMode.HALF_UP);
     }
 
-    public static Money of(String amount){
+    public static Money of(String amount) {
         return new Money(new BigDecimal(amount));
+    }
+
+    public static Money of(double amount) {
+        return new Money(BigDecimal.valueOf(amount));
     }
 
     public Money add(Money other) {
@@ -23,6 +27,10 @@ public record Money(BigDecimal amount) {
 
     public Money subtract(Money other) {
         return new Money(this.amount.subtract(other.amount));
+    }
+
+    public Money multiply(double multiplicand) {
+        return new Money(this.amount.multiply(BigDecimal.valueOf(multiplicand)));
     }
 
 
