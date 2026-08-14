@@ -10,8 +10,8 @@ public class Booking {
     private String id;
     private User user;
     private Resource resource;
-    private LocalDateTime start;
-    private LocalDateTime end;
+    protected LocalDateTime start;
+    protected LocalDateTime end;
     private BookingStatus status;
     private Money calculatedPrice;
     /* TODO Payment class
@@ -19,7 +19,7 @@ public class Booking {
 
     //TODO Overloaded constructors by factory and invariant validations.
 
-    private long durationMinutes() {
+    protected long durationMinutes() {
         return Duration.between(start, end).toMinutes();
     }
 }
