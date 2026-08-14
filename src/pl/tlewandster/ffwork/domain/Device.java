@@ -6,7 +6,7 @@ public class Device extends Resource{
 
     private int quantity;
 
-    public Device(String name, int quantity, Money customHourlyRate) {
+    public Device(String name, int quantity, double customHourlyRate) {
         super(name, customHourlyRate);
         if (quantity<0){
             throw new IllegalArgumentException("Quantity cannot be less than 0");
@@ -21,6 +21,13 @@ public class Device extends Resource{
 
     @Override
     public String describe() {
-        return "";
+        return String.format(
+                """
+                        Nazwa: %s
+                        Ilość urządzeń: %d
+                        Stawka za godzinę: %s
+                        """,
+                this.getName(), this.quantity, this.hourlyRate()
+        );
     }
 }
