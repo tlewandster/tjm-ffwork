@@ -5,7 +5,7 @@ import pl.tlewandster.ffwork.money.Money;
 public class ResourceTest {
     static void main() {
         Resource smallHall = new Room("Mała sala", 10, 100);
-        Resource hotDesk = new Desk("Hot biurko", Desk.DeskType.HOT, 25);
+        Resource hotDesk = new Desk("Hot biurko", "hot", 25);
         Resource projector = new Device("Projektor", 2, 40);
 
         System.out.println(smallHall.describe());

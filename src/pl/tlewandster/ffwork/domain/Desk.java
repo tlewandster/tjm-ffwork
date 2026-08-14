@@ -5,9 +5,9 @@ import pl.tlewandster.ffwork.money.Money;
 public class Desk extends Resource {
     private DeskType type;
 
-    public Desk(String name, DeskType type, double customHourlyRate) {
+    public Desk(String name, String type, double customHourlyRate) {
         super(name, customHourlyRate);
-        this.type = type;
+        this.type = DeskType.valueOf(type.toUpperCase());
     }
 
     @Override
