@@ -5,7 +5,7 @@ import pl.tlewandster.ffwork.money.Money;
 public class Desk extends Resource {
     private DeskType type;
 
-    public Desk(String name, DeskType type, Money customHourlyRate) {
+    public Desk(String name, DeskType type, double customHourlyRate) {
         super(name, customHourlyRate);
         this.type = type;
     }
@@ -17,7 +17,14 @@ public class Desk extends Resource {
 
     @Override
     public String describe() {
-        return "";
+        return String.format(
+                """
+                        Nazwa: %s
+                        Typ biurka: %s
+                        Stawka za godzinę: %s
+                        """,
+                this.getName(), this.type, this.hourlyRate()
+        );
     }
 
     public enum DeskType {
