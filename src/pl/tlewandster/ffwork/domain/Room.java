@@ -8,7 +8,7 @@ public class Room extends Resource {
     private int seats;
     private Set<String> equipment;
 
-    public Room(String name, int seats, Money customHourlyRate) {
+    public Room(String name, int seats, double customHourlyRate) {
         super(name, customHourlyRate);
         if (seats < 0) {
             throw new IllegalArgumentException("Seats cannot be negative");
@@ -23,6 +23,22 @@ public class Room extends Resource {
 
     @Override
     public String describe() {
-        return "";
+        return String.format(
+                """
+                        Nazwa: %s
+                        Ilość miejsc: %d
+                        Wyposażenie: %s
+                        Stawka za godzinę: %s
+                        """,
+                this.getName(), this.seats, this.showEquipment(), this.hourlyRate()
+        );
+    }
+
+    private String showEquipment() {
+        if (equipment == null) {
+            return "brak";
+        } else {
+            return equipment.toString();
+        }
     }
 }
