@@ -14,7 +14,7 @@ public abstract class Resource {
         this.customHourlyRate = Money.of(customHourlyRate);
     }
 
-    protected String getName() {
+    public String getName() {
         return name;
     }
 

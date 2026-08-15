@@ -19,7 +19,7 @@ public class Desk extends Resource {
     public String describe() {
         return String.format(
                 """
-                        Nazwa: %s
+                        Nazwa: Biurko / %s
                         Typ biurka: %s
                         Stawka za godzinę: %s
                         """,
