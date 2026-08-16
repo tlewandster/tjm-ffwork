@@ -15,6 +15,10 @@ public class Booking {
     private BookingStatus status;
     private Money calculatedPrice;
 
+    public LocalDateTime getStart() {
+        return start;
+    }
+
     public String getId() {
         return id;
     }
