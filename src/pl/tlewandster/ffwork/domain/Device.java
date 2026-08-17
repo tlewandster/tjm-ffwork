@@ -2,21 +2,26 @@ package pl.tlewandster.ffwork.domain;
 
 import pl.tlewandster.ffwork.money.Money;
 
-public class Device extends Resource{
+public class Device extends Resource {
 
-    private int quantity;
+    private final int quantity;
 
-    public Device(String name, int quantity, double customHourlyRate) {
+    public Device(String name, int quantity, Number customHourlyRate) {
         super(name, customHourlyRate);
-        if (quantity<0){
+        if (quantity < 0) {
             throw new IllegalArgumentException("Quantity cannot be less than 0");
         }
         this.quantity = quantity;
     }
 
+    public Device(String name, int quantity) {
+        this(name, quantity, null);
+    }
+
+
     @Override
     protected Money baseRatePerHour() {
-        return null;
+        return Money.of(30);
     }
 
     @Override

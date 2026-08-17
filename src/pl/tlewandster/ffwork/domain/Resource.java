@@ -6,12 +6,16 @@ public abstract class Resource {
     private final String name;
     private final Money customHourlyRate;
 
-    public Resource(String name, double customHourlyRate) {
+    public Resource(String name) {
+        this(name, null);
+    }
+
+    public Resource(String name, Number customHourlyRate) {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Name cannot be blank");
         }
         this.name = name;
-        this.customHourlyRate = Money.of(customHourlyRate);
+        this.customHourlyRate = Money.of(customHourlyRate.toString());
     }
 
     public String getName() {

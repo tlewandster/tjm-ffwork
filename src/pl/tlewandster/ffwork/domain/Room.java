@@ -5,20 +5,33 @@ import pl.tlewandster.ffwork.money.Money;
 import java.util.Set;
 
 public class Room extends Resource {
-    private int seats;
-    private Set<String> equipment;
+    private final int seats;
+    private final Set<String> equipment;
 
-    public Room(String name, int seats, double customHourlyRate) {
+    public Room(String name, int seats, Set<String> equipment, Number customHourlyRate) {
         super(name, customHourlyRate);
         if (seats < 0) {
             throw new IllegalArgumentException("Seats cannot be negative");
         }
         this.seats = seats;
+        this.equipment = equipment;
+    }
+
+    public Room(String name, int seats, Set<String> equipment){
+        this(name, seats, equipment, null);
+    }
+
+    public Room(String name, int seats, Number customHourlyRate){
+        this(name, seats, null, customHourlyRate);
+    }
+
+    public Room(String name, int seats){
+        this(name, seats, null, null);
     }
 
     @Override
     protected Money baseRatePerHour() {
-        return null;
+        return Money.of(150);
     }
 
     @Override
