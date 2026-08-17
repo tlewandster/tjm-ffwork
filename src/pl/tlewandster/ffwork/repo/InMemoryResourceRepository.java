@@ -11,6 +11,9 @@ public class InMemoryResourceRepository implements ResourceRepository {
 
     @Override
     public void add(Resource resource) {
+        if (findByName(resource.getName()).isPresent()) {
+            throw new IllegalArgumentException("Resource with name " + resource.getName() + " already exists");
+        }
         resources.add(resource);
     }
 

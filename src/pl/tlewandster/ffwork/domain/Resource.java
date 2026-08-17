@@ -3,8 +3,8 @@ package pl.tlewandster.ffwork.domain;
 import pl.tlewandster.ffwork.money.Money;
 
 public abstract class Resource {
-    private String name;
-    private Money customHourlyRate;
+    private final String name;
+    private final Money customHourlyRate;
 
     public Resource(String name, double customHourlyRate) {
         if (name == null || name.isBlank()) {
