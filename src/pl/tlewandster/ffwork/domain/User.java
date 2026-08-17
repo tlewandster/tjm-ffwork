@@ -7,7 +7,6 @@ public abstract class User {
         if (!isValidEmail(email)) {
             throw new IllegalArgumentException("Invalid email address");
         }
-        // TODO Checking the email address in the Users repository
         this.email = email;
         this.displayName = displayName;
     }
