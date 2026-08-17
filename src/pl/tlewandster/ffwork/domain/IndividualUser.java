@@ -1,19 +1,22 @@
 package pl.tlewandster.ffwork.domain;
 
 public class IndividualUser extends User {
-    private String pesel;
-    private String fullName;
+    private final String pesel;
 
     public IndividualUser(String email, String fullName, String pesel) {
-        super(email);
-        if(!isValidFullName(fullName)){
+        super(email, fullName);
+        if (!isValidFullName(fullName)) {
             throw new IllegalArgumentException("Full name cannot be blank");
         }
-        this.fullName = fullName;
-        if(!isValidPesel(pesel)){
+        if (!isValidPesel(pesel)) {
             throw new IllegalArgumentException("Invalid PESEL number");
         }
         this.pesel = pesel;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s (%s) PESEL: %S", super.getDisplayName(), super.getEmail(), this.pesel);
     }
 
     private boolean isValidPesel(String pesel) {
@@ -23,6 +26,4 @@ public class IndividualUser extends User {
     private boolean isValidFullName(String fullName) {
         return fullName != null && !fullName.isBlank();
     }
-
-    //TODO Add the necessary accessors
 }
