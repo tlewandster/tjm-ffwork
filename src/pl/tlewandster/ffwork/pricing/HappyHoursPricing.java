@@ -9,10 +9,8 @@ public class HappyHoursPricing implements PricingPolicy {
     @Override
     public Money price(Booking booking) {
         int hourOfStart = booking.getStart().getHour();
-        if (hourOfStart >= 14 && hourOfStart <= 16) {
-            return PricingPolicy.super.price(booking).multiply(1 - happyHoursDiscount);
-        } else {
-            return PricingPolicy.super.price(booking);
-        }
+        boolean isHappyHours = hourOfStart >= 14 && hourOfStart <= 16;
+        return PricingPolicy.super.price(booking).multiply(
+                isHappyHours ? 1 - happyHoursDiscount : 1);
     }
 }

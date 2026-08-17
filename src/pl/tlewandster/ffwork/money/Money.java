@@ -3,7 +3,7 @@ package pl.tlewandster.ffwork.money;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public record Money(BigDecimal amount) implements Comparable<Money>{
+public record Money(BigDecimal amount) implements Comparable<Money> {
     static final String currency = "PLN";
 
     public Money {
@@ -37,11 +37,11 @@ public record Money(BigDecimal amount) implements Comparable<Money>{
         return new Money(this.amount.multiply(BigDecimal.valueOf(multiplicand)));
     }
 
-    public Money divide(double divisor){
-        return new Money((this.amount.divide(BigDecimal.valueOf(divisor),RoundingMode.HALF_UP)));
+    public Money divide(double divisor) {
+        return new Money((this.amount.divide(BigDecimal.valueOf(divisor), RoundingMode.HALF_UP)));
     }
 
-    public int compareTo(Money other){
+    public int compareTo(Money other) {
         return this.amount.compareTo(other.amount);
     }
 
@@ -53,7 +53,6 @@ public record Money(BigDecimal amount) implements Comparable<Money>{
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Money money)) return false;
-
         return amount.equals(money.amount);
     }
 
