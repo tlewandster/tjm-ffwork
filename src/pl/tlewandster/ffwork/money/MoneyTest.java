@@ -4,11 +4,19 @@ import java.math.BigDecimal;
 
 public class MoneyTest {
     static void main() {
-        /*Money money = new Money(null);
-        System.out.println("money = " + money);*/
+        try {
+            Money money = new Money(null);
+            System.out.println("money = " + money);
+        } catch (Exception e) {
+            System.err.println(e);
+        }
 
-        /*Money money1 = new Money(new BigDecimal(-1));
-        System.out.println("money1 = " + money1);*/
+        try {
+            Money money1 = new Money(new BigDecimal(-1));
+            System.out.println("money1 = " + money1);
+        } catch (Exception e) {
+            System.err.println(e);
+        }
 
         Money money2 = new Money(new BigDecimal("123.456"));
         System.out.println("money2 = " + money2);
@@ -33,5 +41,9 @@ public class MoneyTest {
 
         int compare = money2.compareTo(money3);
         System.out.println("compare = " + compare);
+
+        boolean equals = Money.of("0.7").add(Money.of("0.1"))
+                .equals(Money.of(0.7).add(Money.of(0.1)));
+        System.out.println("equals = " + equals);
     }
 }

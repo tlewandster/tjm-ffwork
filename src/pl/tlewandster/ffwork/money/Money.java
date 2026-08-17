@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public record Money(BigDecimal amount) implements Comparable<Money> {
-    static final String currency = "PLN";
+    static final String CURRENCY = "PLN";
 
     public Money {
         if (amount == null || amount.signum() < 0) {
@@ -47,7 +47,7 @@ public record Money(BigDecimal amount) implements Comparable<Money> {
 
     @Override
     public String toString() {
-        return amount.toPlainString() + " " + currency;
+        return amount.toPlainString() + " " + CURRENCY;
     }
 
     @Override
