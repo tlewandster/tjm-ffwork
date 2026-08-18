@@ -5,6 +5,7 @@ public class CardPayment extends Payment{
 
     @Override
     public void capture() {
-
+        // TODO payment processing
+        this.status = PaymentStatus.CAPTURED;
     }
 }
