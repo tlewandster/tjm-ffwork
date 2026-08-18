@@ -2,11 +2,11 @@ package pl.tlewandster.ffwork.repo;
 
 import pl.tlewandster.ffwork.domain.*;
 
-import java.util.Optional;
+import java.util.ArrayList;
 
 public class RepositoriesTest {
     static void main() {
-        InMemoryUserRepository users = new InMemoryUserRepository();
+        InMemoryUserRepository users = new InMemoryUserRepository(new ArrayList<>());
         users.add(new IndividualUser("jan.kowalski@example.com", "Jan Kowalski", "85031212345"));
         users.add(new IndividualUser("anna.nowak@example.com", "Anna Nowak", "92052023456"));
         users.add(new IndividualUser("piotr.wisniewski@example.com", "Piotr Wiśniewski", "78110334567"));
@@ -33,7 +33,7 @@ public class RepositoriesTest {
         System.out.println("users.findAll() = " + users.findAll());
         System.out.println("users.findAll().size() = " + users.findAll().size());
 
-        InMemoryResourceRepository resources = new InMemoryResourceRepository();
+        InMemoryResourceRepository resources = new InMemoryResourceRepository(new ArrayList<>());
 
         resources.add(new Room("Sali konferencyjna Alpha", 10, 80.00));
         resources.add(new Room("Gabinet spotkań 1on1", 2, 35.00));

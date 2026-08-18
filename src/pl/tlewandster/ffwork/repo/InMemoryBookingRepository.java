@@ -7,7 +7,11 @@ import java.util.List;
 import java.util.Optional;
 
 public class InMemoryBookingRepository implements BookingRepository {
-    private final List<Booking> bookings = new ArrayList<>();
+    private final List<Booking> bookings;
+
+    public InMemoryBookingRepository(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
 
     @Override
     public void add(Booking booking) {
