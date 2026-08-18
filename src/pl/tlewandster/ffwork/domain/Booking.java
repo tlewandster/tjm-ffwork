@@ -15,6 +15,8 @@ public class Booking {
     private BookingStatus status;
     private Money calculatedPrice;
 
+    public
+
     public LocalDateTime getStart() {
         return start;
     }
