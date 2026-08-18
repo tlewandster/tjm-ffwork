@@ -43,4 +43,12 @@ public class Booking {
     public long durationMinutes() {
         return Duration.between(start, end).toMinutes();
     }
+
+    public Resource getResource() {
+        return this.resource;
+    }
+
+    public LocalDateTime getStart() {
+        return this.start;
+    }
 }
