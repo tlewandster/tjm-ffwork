@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class InMemoryResourceRepository implements ResourceRepository {
-    private static final List<Resource> resources = new ArrayList<>();
+    private final List<Resource> resources = new ArrayList<>();
 
     @Override
     public void add(Resource resource) {

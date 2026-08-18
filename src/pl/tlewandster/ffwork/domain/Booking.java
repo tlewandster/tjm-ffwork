@@ -16,9 +16,8 @@ public class Booking {
     private BookingStatus status;
     private Money calculatedPrice;
     private Payment payment;
-
     public Booking(String id, User user, Resource resource, LocalDateTime start, LocalDateTime end, Money calculatedPrice) {
-        if (end.isBefore(start)){
+        if (end.isBefore(start)) {
             throw new IllegalArgumentException("End time is before start time");
         }
         this.id = id;
@@ -30,11 +29,15 @@ public class Booking {
         this.status = BookingStatus.PENDING;
     }
 
+    public String getId() {
+        return id;
+    }
+
     public void setStatus(BookingStatus newStatus) {
-        if (this.status==BookingStatus.PENDING && newStatus==BookingStatus.COMPLETED){
+        if (this.status == BookingStatus.PENDING && newStatus == BookingStatus.COMPLETED) {
             throw new IllegalStateException("The booking status cannot change from PENDING to COMPLETED");
         }
-        if (this.status==BookingStatus.CONFIRMED && newStatus==BookingStatus.PENDING){
+        if (this.status == BookingStatus.CONFIRMED && newStatus == BookingStatus.PENDING) {
             throw new IllegalStateException("The booking status cannot change from CONFIRMED to PENDING");
         }
         this.status = newStatus;
@@ -51,4 +54,5 @@ public class Booking {
     public LocalDateTime getStart() {
         return this.start;
     }
+
 }
