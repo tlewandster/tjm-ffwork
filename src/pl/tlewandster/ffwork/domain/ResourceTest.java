@@ -10,12 +10,16 @@ public class ResourceTest {
         Resource smallHall2 = new Room("Mała sala z wyposażeniem", 10, Set.of("pełne wyposażenie"),100);
         Resource bigHall = new Room("Duża sala", 15);
         Resource hotDesk = new Desk("Hot biurko", "hot", 25);
+        Resource fixedDesk = new Desk("Fixed biurko","fixed");
         Resource projector = new Device("Projektor", 2, 40);
+        Resource tv = new Device("Telewizor", 5);
 
         System.out.println(smallHall1.describe());
         System.out.println(smallHall2.describe());
         System.out.println(bigHall.describe());
         System.out.println(hotDesk.describe());
+        System.out.println(fixedDesk.describe());
         System.out.println(projector.describe());
+        System.out.println(tv.describe());
     }
 }
