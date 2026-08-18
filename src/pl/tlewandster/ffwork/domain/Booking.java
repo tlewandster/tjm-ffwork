@@ -1,6 +1,7 @@
 package pl.tlewandster.ffwork.domain;
 
 import pl.tlewandster.ffwork.money.Money;
+import pl.tlewandster.ffwork.payment.Payment;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -14,24 +15,21 @@ public class Booking {
     private Resource resource;
     private BookingStatus status;
     private Money calculatedPrice;
+    private Payment payment;
 
-    public
-
-    public LocalDateTime getStart() {
-        return start;
+    public Booking(String id, User user, Resource resource, LocalDateTime start, LocalDateTime end, Money calculatedPrice) {
+        if (end.isBefore(start)){
+            throw new IllegalArgumentException("End time is before start time");
+        }
+        this.id = id;
+        this.user = user;
+        this.resource = resource;
+        this.start = start;
+        this.end = end;
+        this.calculatedPrice = calculatedPrice;
+        this.status = BookingStatus.PENDING;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public Resource getResource() {
-        return resource;
-    }
-    /* TODO Payment class
-    private Payment payment;*/
-
-    //TODO Overloaded constructors by factory and invariant validations.
 
     public long durationMinutes() {
         return Duration.between(start, end).toMinutes();
