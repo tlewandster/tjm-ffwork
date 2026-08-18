@@ -14,6 +14,7 @@ public class ResourceTest {
 
         System.out.println(smallHall1.describe());
         System.out.println(smallHall2.describe());
+        System.out.println(bigHall.describe());
         System.out.println(hotDesk.describe());
         System.out.println(projector.describe());
     }

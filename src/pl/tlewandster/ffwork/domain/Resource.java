@@ -15,7 +15,11 @@ public abstract class Resource {
             throw new IllegalArgumentException("Name cannot be blank");
         }
         this.name = name;
-        this.customHourlyRate = Money.of(customHourlyRate.toString());
+        if (customHourlyRate == null) {
+            this.customHourlyRate = null;
+        } else {
+            this.customHourlyRate = Money.of(customHourlyRate.toString());
+        }
     }
 
     public String getName() {
