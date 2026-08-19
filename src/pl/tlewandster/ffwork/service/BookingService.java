@@ -3,8 +3,8 @@ package pl.tlewandster.ffwork.service;
 import pl.tlewandster.ffwork.domain.*;
 import pl.tlewandster.ffwork.pricing.PricingPolicy;
 import pl.tlewandster.ffwork.repo.BookingRepository;
-import pl.tlewandster.ffwork.repo.InMemoryUserRepository;
 import pl.tlewandster.ffwork.repo.ResourceRepository;
+import pl.tlewandster.ffwork.repo.UserRepository;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -12,12 +12,12 @@ import java.util.stream.Collectors;
 
 public class BookingService {
 
-    private final InMemoryUserRepository users;
+    private final UserRepository users;
     private final ResourceRepository resources;
     private final BookingRepository bookings;
     private final PricingPolicy pricingPolicy;
 
-    public BookingService(InMemoryUserRepository users, ResourceRepository resources, BookingRepository bookings, PricingPolicy pricingPolicy) {
+    public BookingService(UserRepository users, ResourceRepository resources, BookingRepository bookings, PricingPolicy pricingPolicy) {
         this.users = users;
         this.resources = resources;
         this.bookings = bookings;

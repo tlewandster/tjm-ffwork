@@ -14,9 +14,13 @@ public class IndividualUser extends User {
         this.pesel = pesel;
     }
 
+    public IndividualUser(String email, String fullName){
+        this(email,fullName,"00000000000");
+    }
+
     @Override
     public String toString() {
-        return String.format("%s (%s) PESEL: %S", super.getDisplayName(), super.getEmail(), this.pesel);
+        return String.format("%s (%s) PESEL: %s", super.getDisplayName(), super.getEmail(), this.pesel.equals("00000000000")? "brak danych": this.pesel);
     }
 
     private boolean isValidPesel(String pesel) {
