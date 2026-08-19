@@ -18,6 +18,11 @@ public class Device extends Resource {
         this(name, quantity, null);
     }
 
+    @Override
+    public String toString() {
+        return "Device{" + "quantity=" + quantity + "} " + super.toString();
+    }
+
     public int getQuantity() {
         return quantity;
     }
@@ -29,13 +34,10 @@ public class Device extends Resource {
 
     @Override
     public String describe() {
-        return String.format(
-                """
-                        Nazwa: %s
-                        Ilość urządzeń: %d
-                        Stawka za godzinę: %s
-                        """,
-                this.getName(), this.quantity, this.hourlyRate()
-        );
+        return String.format("""
+                Nazwa: %s
+                Ilość urządzeń: %d
+                Stawka za godzinę: %s
+                """, this.getName(), this.quantity, this.hourlyRate());
     }
 }

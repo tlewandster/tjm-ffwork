@@ -24,7 +24,7 @@ public class BookingService {
         this.pricingPolicy = pricingPolicy;
     }
 
-    Booking book(String userEmail, String resourceName, String startIso, String endIso) {
+    public Booking book(String userEmail, String resourceName, String startIso, String endIso) {
         LocalDateTime start = LocalDateTime.parse(startIso);
         LocalDateTime end = LocalDateTime.parse(endIso);
         User user = users.findByEmail(userEmail).orElseThrow(() -> new IllegalArgumentException("That user does not exist in the database"));
@@ -35,8 +35,13 @@ public class BookingService {
         checkForCollisions(resource, start, end);
         Booking newBooking = new Booking(user, resource, start, end);
         newBooking.setCalculatedPrice(pricingPolicy.price(newBooking));
-        String newBookingId = "BK-" + start.format(DateTimeFormatter.BASIC_ISO_DATE) + "-" + Booking.getBookCounter();
+        newBooking.setId("BK-" + start.format(DateTimeFormatter.BASIC_ISO_DATE) + "-" + Booking.getBookCounter());
+        bookings.add(newBooking);
         return newBooking;
+    }
+
+    public Booking book(String userEmail, String resourceName, String startIso, int durationMinutes){
+        return this.book(userEmail,resourceName,startIso,LocalDateTime.parse(startIso).plusMinutes(durationMinutes).toString());
     }
 
     private void checkForCollisions(Resource resource, LocalDateTime start, LocalDateTime end) {

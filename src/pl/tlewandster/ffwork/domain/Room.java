@@ -17,16 +17,21 @@ public class Room extends Resource {
         this.equipment = equipment;
     }
 
-    public Room(String name, int seats, Set<String> equipment){
+    public Room(String name, int seats, Set<String> equipment) {
         this(name, seats, equipment, null);
     }
 
-    public Room(String name, int seats, Number customHourlyRate){
+    public Room(String name, int seats, Number customHourlyRate) {
         this(name, seats, null, customHourlyRate);
     }
 
-    public Room(String name, int seats){
+    public Room(String name, int seats) {
         this(name, seats, null, null);
+    }
+
+    @Override
+    public String toString() {
+        return "Room{" + "seats=" + seats + ", equipment=" + equipment + "} " + super.toString();
     }
 
     @Override
@@ -36,15 +41,12 @@ public class Room extends Resource {
 
     @Override
     public String describe() {
-        return String.format(
-                """
-                        Nazwa: %s
-                        Ilość miejsc: %d
-                        Wyposażenie: %s
-                        Stawka za godzinę: %s
-                        """,
-                this.getName(), this.seats, this.showEquipment(), this.hourlyRate()
-        );
+        return String.format("""
+                Nazwa: %s
+                Ilość miejsc: %d
+                Wyposażenie: %s
+                Stawka za godzinę: %s
+                """, this.getName(), this.seats, this.showEquipment(), this.hourlyRate());
     }
 
     private String showEquipment() {

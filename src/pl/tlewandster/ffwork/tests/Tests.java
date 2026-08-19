@@ -1,6 +1,9 @@
 package pl.tlewandster.ffwork.tests;
 
+import pl.tlewandster.ffwork.billing.Billable;
+import pl.tlewandster.ffwork.billing.Invoice;
 import pl.tlewandster.ffwork.domain.*;
+import pl.tlewandster.ffwork.payment.CardPayment;
 import pl.tlewandster.ffwork.pricing.PricingPolicy;
 import pl.tlewandster.ffwork.pricing.StandardPricing;
 import pl.tlewandster.ffwork.repo.*;
@@ -14,7 +17,7 @@ public class Tests {
         ResourceRepository resources = new InMemoryResourceRepository(new ArrayList<>());
         BookingRepository bookings = new InMemoryBookingRepository(new ArrayList<>());
         PricingPolicy pricingPolicy = new StandardPricing();
-        new BookingService(users, resources, bookings, pricingPolicy);
+        BookingService service = new BookingService(users, resources, bookings, pricingPolicy);
 
         // Test 0 — Dane startowe
 
@@ -45,6 +48,35 @@ public class Tests {
         System.out.println("LISTA UŻYTKOWNIKÓW:\n");
         users.findAll().forEach(System.out::println);
         System.out.println("-".repeat(20));
+
+        // Test 1 — Rezerwacja i płatność (overloading)
+
+        // BOOK biuro@acme.pl "Sala Alfa" 2025-09-15T10:00 2025-09-15T12:00 → PENDING, cena 160.00 PLN.
+        Booking book1 = service.book("biuro@acme.pl", "Sala Alfa", "2025-09-15T10:00", "2025-09-15T12:00");
+        System.out.println(book1);
+        System.out.println("-".repeat(20));
+
+        // CONFIRM <id>
+        service.confirm(book1.getId());
+        System.out.println(book1);
+        System.out.println("-".repeat(20));
+
+        // PAY <id> CARD 4242
+        CardPayment cardPayment1 = new CardPayment(book1.getId(), book1.getCalculatedPrice(), "4242");
+        System.out.println(cardPayment1);
+        cardPayment1.capture();
+        System.out.println(cardPayment1);
+        System.out.println("-".repeat(20));
+
+        // INVOICE <id>
+        // TODO Czegoś nie rozumiem
+
+        // BOOK biuro@acme.pl "Sala Alfa" 2025-09-16T09:00 90
+        Booking book2 = service.book("biuro@acme.pl", "Sala Alfa", "2025-09-16T09:00", 90);
+        System.out.println(book2);
+        System.out.println("-".repeat(20));
+
+
 
     }
 }

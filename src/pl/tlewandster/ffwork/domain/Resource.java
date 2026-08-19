@@ -28,6 +28,11 @@ public abstract class Resource {
 
     protected abstract Money baseRatePerHour();
 
+    @Override
+    public String toString() {
+        return "Resource{" + "name='" + name + '\'' + ", customHourlyRate=" + customHourlyRate + '}';
+    }
+
     public abstract String describe();
 
     public Money hourlyRate() {

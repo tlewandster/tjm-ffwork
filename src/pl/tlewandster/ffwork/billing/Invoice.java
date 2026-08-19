@@ -6,16 +6,23 @@ import pl.tlewandster.ffwork.money.Money;
 
 import java.time.LocalDateTime;
 
-public class Invoice implements Billable{
-    private String InvoiceNumber;
-    private LocalDateTime issueDate;
-    private User buyer;
-    private Money Total;
-    private String itemDescription;
+public class Invoice implements Billable {
+    private String invoiceNumber;
+    private final LocalDateTime issueDate;
+    private final User buyer;
+    private final Money Total;
+    private final String itemDescription;
 
+    public Invoice(String invoiceNumber, LocalDateTime issueDate, User buyer, Money total, String itemDescription) {
+        this.invoiceNumber = invoiceNumber;
+        this.issueDate = issueDate;
+        this.buyer = buyer;
+        Total = total;
+        this.itemDescription = itemDescription;
+    }
 
-    @Override
     public Invoice toInvoice(Booking booking) {
-        return null;
+        String invoiceDescription = "Rezerwacja " + booking.getResource().getName() + " " + booking.getStart() + "-" + booking.getEnd();
+        return new Invoice(booking.getId(), LocalDateTime.now(), booking.getUser(), booking.getCalculatedPrice(), invoiceDescription);
     }
 }

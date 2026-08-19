@@ -11,7 +11,12 @@ public class Desk extends Resource {
     }
 
     public Desk(String name, String type) {
-        this(name,type, null);
+        this(name, type, null);
+    }
+
+    @Override
+    public String toString() {
+        return "Desk{" + "type=" + type + "} " + super.toString();
     }
 
     @Override

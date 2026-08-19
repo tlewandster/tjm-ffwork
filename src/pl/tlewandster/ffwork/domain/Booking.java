@@ -33,6 +33,10 @@ public class Booking {
         return bookCounter;
     }
 
+    public Money getCalculatedPrice() {
+        return calculatedPrice;
+    }
+
     public void setCalculatedPrice(Money calculatedPrice) {
         this.calculatedPrice = calculatedPrice;
     }
@@ -59,6 +63,15 @@ public class Booking {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Booking{" + "start=" + start + ", end=" + end + ", id='" + id + '\'' + ", user=" + user + ", resource=" + resource + ", status=" + status + ", calculatedPrice=" + calculatedPrice + ", payment=" + payment + '}';
+    }
+
     public long durationMinutes() {
         return Duration.between(start, end).toMinutes();
     }
@@ -71,4 +84,7 @@ public class Booking {
         return this.start;
     }
 
+    public User getUser() {
+        return user;
+    }
 }
