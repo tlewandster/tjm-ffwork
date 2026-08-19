@@ -16,21 +16,33 @@ public class Booking {
     private BookingStatus status;
     private Money calculatedPrice;
     private Payment payment;
-    public Booking(String id, User user, Resource resource, LocalDateTime start, LocalDateTime end, Money calculatedPrice) {
+
+    public Booking(User user, Resource resource, LocalDateTime start, LocalDateTime end) {
         if (end.isBefore(start)) {
             throw new IllegalArgumentException("End time is before start time");
         }
-        this.id = id;
         this.user = user;
         this.resource = resource;
         this.start = start;
         this.end = end;
-        this.calculatedPrice = calculatedPrice;
         this.status = BookingStatus.PENDING;
+        ++bookCounter;
     }
 
-    public String getId() {
-        return id;
+    public static long getBookCounter() {
+        return bookCounter;
+    }
+
+    public void setCalculatedPrice(Money calculatedPrice) {
+        this.calculatedPrice = calculatedPrice;
+    }
+
+    public LocalDateTime getEnd() {
+        return end;
+    }
+
+    public BookingStatus getStatus() {
+        return status;
     }
 
     public void setStatus(BookingStatus newStatus) {
@@ -41,6 +53,10 @@ public class Booking {
             throw new IllegalStateException("The booking status cannot change from CONFIRMED to PENDING");
         }
         this.status = newStatus;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public long durationMinutes() {

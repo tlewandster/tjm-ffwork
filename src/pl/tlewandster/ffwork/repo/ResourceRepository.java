@@ -11,5 +11,4 @@ public interface ResourceRepository {
     Optional<Resource> findByName(String name);
 
     List<Resource> findAll();
-//    List<Resource> findByType(Class<? extends Resource> t);
 }
