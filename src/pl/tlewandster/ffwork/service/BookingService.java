@@ -63,7 +63,7 @@ public class BookingService {
             long reservedCopies = bookings.findAll().stream()
                     .filter(booking -> start.isBefore(booking.getEnd()) && booking.getStart().isBefore(end))
                     .count();
-            if (reservedCopies == device.getQuantity()) {
+            if (reservedCopies > device.getQuantity()) {
                 throw new IllegalStateException("All devices are reserved");
             }
         }

@@ -1,7 +1,5 @@
 package pl.tlewandster.ffwork.tests;
 
-import pl.tlewandster.ffwork.billing.Billable;
-import pl.tlewandster.ffwork.billing.Invoice;
 import pl.tlewandster.ffwork.domain.*;
 import pl.tlewandster.ffwork.payment.CardPayment;
 import pl.tlewandster.ffwork.pricing.HappyHoursPricing;
@@ -29,7 +27,7 @@ public class Tests {
         resources.add(new Desk("Hot-1", "hot", 25));
 
         // ADD_DEVICE "Projektor-1" 2 40
-        resources.add((new Device("Projector-1", 2, 40)));
+        resources.add((new Device("Projektor-1", 2, 40)));
 
         // ADD_USER INDIVIDUAL anna@ex.com "Anna Nowak"
         users.add(new IndividualUser("anna@ex.com", "Anna Nowak"));
@@ -83,7 +81,8 @@ public class Tests {
         try {
             Booking book3 = service.book("biuro@acme.pl", "Sala Alfa", "2025-09-15T11:00", "2025-09-15T13:00");
         } catch (Exception e) {
-            System.out.println(e);;
+            System.out.println(e.getMessage());
+            ;
         }
         Booking book4 = service.book("biuro@acme.pl", "Hot-1", "2025-09-15T11:00", "2025-09-15T13:00");
         System.out.println(book4);
@@ -98,5 +97,18 @@ public class Tests {
         Booking book5 = service.book("anna@ex.com", "Hot-1", "2025-09-17T14:00", "2025-09-17T16:00");
         System.out.println(book5);
         System.out.println("-".repeat(20));
+
+        //Test 6 — Ilość urządzeń
+        try {
+            Booking book6 = service.book("anna@ex.com", "Projektor-1", "2025-09-17T14:00", "2025-09-17T16:00");
+            System.out.println(book6);
+            Booking book7 = service.book("anna@ex.com", "Projektor-1", "2025-09-17T14:00", "2025-09-17T16:00");
+            System.out.println(book7);
+            Booking book8 = service.book("anna@ex.com", "Projektor-1", "2025-09-17T14:00", "2025-09-17T16:00");
+            System.out.println(book8);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 }
