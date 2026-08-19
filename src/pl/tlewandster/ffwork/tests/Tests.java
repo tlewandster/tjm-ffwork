@@ -76,6 +76,16 @@ public class Tests {
         System.out.println(book2);
         System.out.println("-".repeat(20));
 
+        // Test 2 — Kolizje
+        // BOOK biuro@acme.pl "Sala Alfa" 2025-09-15T11:00 2025-09-15T13:00
+        try {
+            Booking book3 = service.book("biuro@acme.pl", "Sala Alfa", "2025-09-15T11:00", "2025-09-15T13:00");
+        } catch (Exception e) {
+            System.out.println(e);;
+        }
+        Booking book4 = service.book("biuro@acme.pl", "Hot-1", "2025-09-15T11:00", "2025-09-15T13:00");
+        System.out.println(book4);
+        System.out.println("-".repeat(20));
 
 
     }

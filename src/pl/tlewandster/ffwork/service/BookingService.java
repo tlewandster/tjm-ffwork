@@ -47,6 +47,7 @@ public class BookingService {
     private void checkForCollisions(Resource resource, LocalDateTime start, LocalDateTime end) {
         if (resource instanceof Room || resource instanceof Desk) {
             boolean isOverlapped = bookings.findAll().stream()
+                    .filter(booking -> booking.getResource().getName().equals(resource.getName()))
                     .filter(booking -> booking.getStatus() == BookingStatus.CONFIRMED || booking.getStatus() == BookingStatus.PENDING)
                     .anyMatch(booking -> start.isBefore(booking.getEnd()) && booking.getStart().isBefore(end));
             if (isOverlapped) {
