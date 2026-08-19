@@ -8,6 +8,7 @@ import pl.tlewandster.ffwork.repo.ResourceRepository;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.stream.Collectors;
 
 public class BookingService {
 
@@ -67,5 +68,10 @@ public class BookingService {
 
     public void complete(String bookingId) {
         bookings.findById(bookingId).ifPresent(booking -> booking.setStatus(BookingStatus.COMPLETED));
+    }
+
+    public String listAll(){
+        return bookings.findAll().stream()
+                .collect(Collectors.groupingBy(Booking::getId)).toString();
     }
 }
