@@ -4,6 +4,7 @@ import pl.tlewandster.ffwork.billing.Billable;
 import pl.tlewandster.ffwork.billing.Invoice;
 import pl.tlewandster.ffwork.domain.*;
 import pl.tlewandster.ffwork.payment.CardPayment;
+import pl.tlewandster.ffwork.pricing.HappyHoursPricing;
 import pl.tlewandster.ffwork.pricing.PricingPolicy;
 import pl.tlewandster.ffwork.pricing.StandardPricing;
 import pl.tlewandster.ffwork.repo.*;
@@ -37,7 +38,7 @@ public class Tests {
         users.add(new CompanyUser("biuro@acme.pl", "ACME Sp. z o.o.", "5211234567"));
 
         // SET_PRICING STANDARD
-        pricingPolicy = new StandardPricing();
+        service.setPricingPolicy(new StandardPricing());
 
         // LIST_RESOURCES
         System.out.println("LISTA ZASOBÓW:\n");
@@ -77,6 +78,7 @@ public class Tests {
         System.out.println("-".repeat(20));
 
         // Test 2 — Kolizje
+
         // BOOK biuro@acme.pl "Sala Alfa" 2025-09-15T11:00 2025-09-15T13:00
         try {
             Booking book3 = service.book("biuro@acme.pl", "Sala Alfa", "2025-09-15T11:00", "2025-09-15T13:00");
@@ -87,6 +89,14 @@ public class Tests {
         System.out.println(book4);
         System.out.println("-".repeat(20));
 
+        // Test 3 — Happy Hours
 
+        // SET_PRICING HAPPY_HOURS
+        service.setPricingPolicy(new HappyHoursPricing());
+
+        //BOOK anna@ex.com "Hot-1" 2025-09-17T14:00 2025-09-17T16:00
+        Booking book5 = service.book("anna@ex.com", "Hot-1", "2025-09-17T14:00", "2025-09-17T16:00");
+        System.out.println(book5);
+        System.out.println("-".repeat(20));
     }
 }

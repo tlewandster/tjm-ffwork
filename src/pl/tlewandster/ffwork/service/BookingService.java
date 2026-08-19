@@ -15,7 +15,12 @@ public class BookingService {
     private final UserRepository users;
     private final ResourceRepository resources;
     private final BookingRepository bookings;
-    private final PricingPolicy pricingPolicy;
+
+    public void setPricingPolicy(PricingPolicy pricingPolicy) {
+        this.pricingPolicy = pricingPolicy;
+    }
+
+    private PricingPolicy pricingPolicy;
 
     public BookingService(UserRepository users, ResourceRepository resources, BookingRepository bookings, PricingPolicy pricingPolicy) {
         this.users = users;
