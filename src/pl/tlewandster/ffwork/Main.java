@@ -1,5 +1,6 @@
 package pl.tlewandster.ffwork;
 
+import pl.tlewandster.ffwork.domain.IndividualUser;
 import pl.tlewandster.ffwork.pricing.PricingPolicy;
 import pl.tlewandster.ffwork.pricing.StandardPricing;
 import pl.tlewandster.ffwork.repo.*;
@@ -9,21 +10,25 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    static void main(String[] args) {
 
-        UserRepository users = new InMemoryUserRepository(new ArrayList<>());
-        ResourceRepository resources = new InMemoryResourceRepository(new ArrayList<>());
-        BookingRepository bookings = new InMemoryBookingRepository(new ArrayList<>());
-        PricingPolicy pricingPolicy = new StandardPricing();
-        BookingService service = new BookingService(users, resources, bookings, pricingPolicy);
+    static final UserRepository users = new InMemoryUserRepository(new ArrayList<>());
+    static final ResourceRepository resources = new InMemoryResourceRepository(new ArrayList<>());
+    static final BookingRepository bookings = new InMemoryBookingRepository(new ArrayList<>());
+    static final PricingPolicy pricingPolicy = new StandardPricing();
+    static final BookingService service = new BookingService(users, resources, bookings, pricingPolicy);
+    static final Scanner scanner = new Scanner(System.in);
 
-        Scanner scanner = new Scanner(System.in);
+    public static void main() {
+
+
+
         boolean isRunning = true;
 
         while (isRunning) {
             showHelp();
             System.out.println(">>>");
             int command = scanner.nextInt();
+            scanner.nextLine();
             switch (command) {
                 case 0 -> isRunning = false;
                 case 1 -> handleAddUserIndividual();
@@ -35,6 +40,11 @@ public class Main {
     }
 
     private static void handleAddUserIndividual() {
+        System.out.println("Email:");
+        String email = scanner.nextLine();
+        System.out.println("Imię i nazwisko:");
+        String fullName = scanner.nextLine();
+        users.add(new IndividualUser(email, fullName));
     }
 
     private static void showHelp() {
