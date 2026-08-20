@@ -8,21 +8,29 @@ import java.time.LocalDateTime;
 
 public class Invoice implements Billable {
     private String invoiceNumber;
-    private final LocalDateTime issueDate;
-    private final User buyer;
-    private final Money Total;
-    private final String itemDescription;
+    private LocalDateTime issueDate;
+    private User buyer;
+    private Money total;
+    private String itemDescription;
 
-    public Invoice(String invoiceNumber, LocalDateTime issueDate, User buyer, Money total, String itemDescription) {
-        this.invoiceNumber = invoiceNumber;
-        this.issueDate = issueDate;
-        this.buyer = buyer;
-        Total = total;
-        this.itemDescription = itemDescription;
+    @Override
+    public String toString() {
+        return "Invoice{" +
+                "invoiceNumber='" + invoiceNumber + '\'' +
+                ", issueDate=" + issueDate +
+                ", buyer=" + buyer +
+                ", total=" + total +
+                ", itemDescription='" + itemDescription + '\'' +
+                '}';
     }
 
     public Invoice toInvoice(Booking booking) {
         String invoiceDescription = "Rezerwacja " + booking.getResource().getName() + " " + booking.getStart() + "-" + booking.getEnd();
-        return new Invoice(booking.getId(), LocalDateTime.now(), booking.getUser(), booking.getCalculatedPrice(), invoiceDescription);
+        this.invoiceNumber = booking.getId();
+        this.issueDate = LocalDateTime.now();
+        this.buyer = booking.getUser();
+        this.total = booking.getCalculatedPrice();
+        this.itemDescription = invoiceDescription;
+        return this;
     }
 }

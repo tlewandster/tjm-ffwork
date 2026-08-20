@@ -1,5 +1,6 @@
 package pl.tlewandster.ffwork.tests;
 
+import pl.tlewandster.ffwork.billing.Invoice;
 import pl.tlewandster.ffwork.domain.*;
 import pl.tlewandster.ffwork.payment.CardPayment;
 import pl.tlewandster.ffwork.pricing.HappyHoursPricing;
@@ -68,7 +69,10 @@ public class Tests {
         System.out.println("-".repeat(20));
 
         // INVOICE <id>
-        // TODO Czegoś nie rozumiem
+        Invoice invoice = new Invoice();
+        invoice.toInvoice(book1);
+        System.out.println(invoice);
+        System.out.println("-".repeat(20));
 
         // BOOK biuro@acme.pl "Sala Alfa" 2025-09-16T09:00 90
         Booking book2 = service.book("biuro@acme.pl", "Sala Alfa", "2025-09-16T09:00", 90);
