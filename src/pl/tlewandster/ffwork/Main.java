@@ -1,9 +1,22 @@
 package pl.tlewandster.ffwork;
 
+import pl.tlewandster.ffwork.pricing.PricingPolicy;
+import pl.tlewandster.ffwork.pricing.StandardPricing;
+import pl.tlewandster.ffwork.repo.*;
+import pl.tlewandster.ffwork.service.BookingService;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     static void main(String[] args) {
+
+        UserRepository users = new InMemoryUserRepository(new ArrayList<>());
+        ResourceRepository resources = new InMemoryResourceRepository(new ArrayList<>());
+        BookingRepository bookings = new InMemoryBookingRepository(new ArrayList<>());
+        PricingPolicy pricingPolicy = new StandardPricing();
+        BookingService service = new BookingService(users, resources, bookings, pricingPolicy);
+
         Scanner scanner = new Scanner(System.in);
         boolean isRunning = true;
 
@@ -18,7 +31,7 @@ public class Main {
             }
 
         }
-
+        scanner.close();
     }
 
     private static void handleAddUserIndividual() {
