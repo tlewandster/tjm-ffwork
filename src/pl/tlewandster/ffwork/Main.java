@@ -1,8 +1,6 @@
 package pl.tlewandster.ffwork;
 
-import pl.tlewandster.ffwork.domain.CompanyUser;
-import pl.tlewandster.ffwork.domain.IndividualUser;
-import pl.tlewandster.ffwork.domain.Room;
+import pl.tlewandster.ffwork.domain.*;
 import pl.tlewandster.ffwork.pricing.PricingPolicy;
 import pl.tlewandster.ffwork.pricing.StandardPricing;
 import pl.tlewandster.ffwork.repo.*;
@@ -37,6 +35,9 @@ public class Main {
                     case 2 -> handleAddCompanyUser();
                     case 3 -> handleListUsers();
                     case 4 -> handleAddRoom();
+                    case 5 -> handleAddDesk();
+                    case 6 -> nandleAddDevice();
+                    case 7 -> handlListResources();
                     default -> printError("Błędna komenda");
                 }
             } catch (Exception e) {
@@ -46,13 +47,42 @@ public class Main {
         scanner.close();
     }
 
-    private static void handleAddRoom() {
-        System.out.println("Nazwa:");
+    private static void handlListResources() {
+        System.out.println("LISTA ZASOBÓW:\n");
+        resources.findAll().forEach(resource -> System.out.println(resource.describe()));
+        System.out.println("-".repeat(20));
+    }
+
+    private static void nandleAddDevice() {
+        System.out.println("Nazwa urządzenia: ");
         String name = scanner.nextLine();
-        System.out.println("Ilość miejsc:");
+        System.out.println("Ilość: ");
+        int quantity = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("Cena za godz.: ");
+        int customHourlyRate = scanner.nextInt();
+        scanner.nextLine();
+        resources.add((new Device(name, quantity, customHourlyRate)));
+    }
+
+    private static void handleAddDesk() {
+        System.out.println("Nazwa biurka: ");
+        String name = scanner.nextLine();
+        System.out.println("Typ: ");
+        String type = scanner.nextLine();
+        System.out.println("Cena za godz.: ");
+        int customHourlyRate = scanner.nextInt();
+        scanner.nextLine();
+        resources.add(new Desk(name, type, customHourlyRate));
+    }
+
+    private static void handleAddRoom() {
+        System.out.println("Nazwa sali: ");
+        String name = scanner.nextLine();
+        System.out.println("Ilość miejsc: ");
         int seats = scanner.nextInt();
         scanner.nextLine();
-        System.out.println("Cena za godz.:");
+        System.out.println("Cena za godz.: ");
         int customHourlyRate = scanner.nextInt();
         scanner.nextLine();
         resources.add(new Room(name, seats, customHourlyRate));

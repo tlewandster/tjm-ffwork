@@ -35,7 +35,7 @@ public class Device extends Resource {
     @Override
     public String describe() {
         return String.format("""
-                Nazwa: %s
+                Nazwa: Urządzenie / %s
                 Ilość urządzeń: %d
                 Stawka za godzinę: %s
                 """, this.getName(), this.quantity, this.hourlyRate());

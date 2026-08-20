@@ -42,7 +42,7 @@ public class Room extends Resource {
     @Override
     public String describe() {
         return String.format("""
-                Nazwa: %s
+                Nazwa: Sala / %s
                 Ilość miejsc: %d
                 Wyposażenie: %s
                 Stawka za godzinę: %s
