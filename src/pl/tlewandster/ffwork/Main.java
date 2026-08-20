@@ -40,6 +40,8 @@ public class Main {
                     case 7 -> handlListResources();
                     case 8 -> handleBookStartEnd();
                     case 9 -> handleBookStartDuration();
+                    case 10 -> handleConfirm();
+                    case 11 -> handleCansel();
                     default -> printError("Błędna komenda");
                 }
             } catch (Exception e) {
@@ -47,6 +49,18 @@ public class Main {
             }
         }
         scanner.close();
+    }
+
+    private static void handleCansel() {
+        System.out.println("Numer rezerwacji: ");
+        String bookingId = scanner.nextLine();
+        service.cancel(bookingId);
+    }
+
+    private static void handleConfirm() {
+        System.out.println("Numer rezerwacji: ");
+        String bookingId = scanner.nextLine();
+        service.confirm(bookingId);
     }
 
     private static void handleBookStartDuration() {
