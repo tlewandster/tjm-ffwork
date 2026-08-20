@@ -42,6 +42,7 @@ public class Main {
                     case 9 -> handleBookStartDuration();
                     case 10 -> handleConfirm();
                     case 11 -> handleCansel();
+                    case 12 -> handleListBookings();
                     default -> printError("Błędna komenda");
                 }
             } catch (Exception e) {
@@ -49,6 +50,12 @@ public class Main {
             }
         }
         scanner.close();
+    }
+
+    private static void handleListBookings() {
+        System.out.println("LISTA REZERWACJI:\n");
+        bookings.findAll().forEach(System.out::println);
+        System.out.println("-".repeat(20));
     }
 
     private static void handleCansel() {
