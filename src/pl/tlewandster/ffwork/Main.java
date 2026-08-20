@@ -29,10 +29,16 @@ public class Main {
             System.out.println(">>>");
             int command = scanner.nextInt();
             scanner.nextLine();
-            switch (command) {
-                case 0 -> isRunning = false;
-                case 1 -> handleAddUserIndividual();
-                default -> System.out.println("Błędna komenda");
+            try {
+                switch (command) {
+                    case 0 -> isRunning = false;
+                    case 1 -> handleAddUserIndividual();
+                    default -> System.out.println("Błędna komenda");
+                }
+            } catch (Exception e) {
+                System.out.println();
+                System.out.println("\u001B[31m" + "BŁĄD: " + e.getMessage() + "\u001B[0m");
+                System.out.println();
             }
 
         }
