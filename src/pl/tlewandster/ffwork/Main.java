@@ -1,5 +1,6 @@
 package pl.tlewandster.ffwork;
 
+import pl.tlewandster.ffwork.domain.CompanyUser;
 import pl.tlewandster.ffwork.domain.IndividualUser;
 import pl.tlewandster.ffwork.pricing.PricingPolicy;
 import pl.tlewandster.ffwork.pricing.StandardPricing;
@@ -21,7 +22,6 @@ public class Main {
     public static void main() {
 
 
-
         boolean isRunning = true;
 
         while (isRunning) {
@@ -32,7 +32,9 @@ public class Main {
             try {
                 switch (command) {
                     case 0 -> isRunning = false;
-                    case 1 -> handleAddUserIndividual();
+                    case 1 -> handleAddIndividualUser();
+                    case 2 -> handleAddCompanyUser();
+                    case 3 -> handleListUsers();
                     default -> System.out.println("Błędna komenda");
                 }
             } catch (Exception e) {
@@ -45,7 +47,23 @@ public class Main {
         scanner.close();
     }
 
-    private static void handleAddUserIndividual() {
+    private static void handleListUsers() {
+        System.out.println("LISTA UŻYTKOWNIKÓW:\n");
+        users.findAll().forEach(System.out::println);
+        System.out.println("-".repeat(20));
+    }
+
+    private static void handleAddCompanyUser() {
+        System.out.println("Email:");
+        String email = scanner.nextLine();
+        System.out.println("Nazwa firmy:");
+        String companyName = scanner.nextLine();
+        System.out.println("NIP:");
+        String taxId = scanner.nextLine();
+        users.add(new CompanyUser(email, companyName, taxId));
+    }
+
+    private static void handleAddIndividualUser() {
         System.out.println("Email:");
         String email = scanner.nextLine();
         System.out.println("Imię i nazwisko:");
