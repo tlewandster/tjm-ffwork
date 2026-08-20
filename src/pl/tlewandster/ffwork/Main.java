@@ -38,6 +38,8 @@ public class Main {
                     case 5 -> handleAddDesk();
                     case 6 -> nandleAddDevice();
                     case 7 -> handlListResources();
+                    case 8 -> handleBookStartEnd();
+                    case 9 -> handleBookStartDuration();
                     default -> printError("Błędna komenda");
                 }
             } catch (Exception e) {
@@ -45,6 +47,30 @@ public class Main {
             }
         }
         scanner.close();
+    }
+
+    private static void handleBookStartDuration() {
+        System.out.println("Email: ");
+        String userEmail = scanner.nextLine();
+        System.out.println("Nazwa zasobu: ");
+        String resourceName = scanner.nextLine();
+        System.out.println("Od (rrrr-mm-ddThh:mm): ");
+        String startIso = scanner.nextLine();
+        System.out.println("Okres czasu w minutach: ");
+        int durationMinutes = scanner.nextInt();
+        service.book(userEmail, resourceName, startIso, durationMinutes);
+    }
+
+    private static void handleBookStartEnd() {
+        System.out.println("Email: ");
+        String userEmail = scanner.nextLine();
+        System.out.println("Nazwa zasobu: ");
+        String resourceName = scanner.nextLine();
+        System.out.println("Od (rrrr-mm-ddThh:mm): ");
+        String startIso = scanner.nextLine();
+        System.out.println("Do (rrrr-mm-ddThh:mm): ");
+        String endIso = scanner.nextLine();
+        service.book(userEmail, resourceName, startIso, endIso);
     }
 
     private static void handlListResources() {
