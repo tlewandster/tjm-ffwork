@@ -2,6 +2,7 @@ package pl.tlewandster.ffwork;
 
 import pl.tlewandster.ffwork.domain.CompanyUser;
 import pl.tlewandster.ffwork.domain.IndividualUser;
+import pl.tlewandster.ffwork.domain.Room;
 import pl.tlewandster.ffwork.pricing.PricingPolicy;
 import pl.tlewandster.ffwork.pricing.StandardPricing;
 import pl.tlewandster.ffwork.repo.*;
@@ -35,16 +36,26 @@ public class Main {
                     case 1 -> handleAddIndividualUser();
                     case 2 -> handleAddCompanyUser();
                     case 3 -> handleListUsers();
-                    default -> System.out.println("Błędna komenda");
+                    case 4 -> handleAddRoom();
+                    default -> printError("Błędna komenda");
                 }
             } catch (Exception e) {
-                System.out.println();
-                System.out.println("\u001B[31m" + "BŁĄD: " + e.getMessage() + "\u001B[0m");
-                System.out.println();
+                printError(e.getMessage());
             }
-
         }
         scanner.close();
+    }
+
+    private static void handleAddRoom() {
+        System.out.println("Nazwa:");
+        String name = scanner.nextLine();
+        System.out.println("Ilość miejsc:");
+        int seats = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("Cena za godz.:");
+        int customHourlyRate = scanner.nextInt();
+        scanner.nextLine();
+        resources.add(new Room(name, seats, customHourlyRate));
     }
 
     private static void handleListUsers() {
@@ -71,8 +82,16 @@ public class Main {
         users.add(new IndividualUser(email, fullName));
     }
 
+    private static void printError(String text) {
+        System.out.println();
+        System.out.println("\u001B[31m" + "BŁĄD: " + text + "\u001B[0m");
+        System.out.println();
+    }
+
     private static void showHelp() {
         System.out.println("""
+                
+                
                 KOMENDY CLI
                 -----------
                 Użytkownicy:
