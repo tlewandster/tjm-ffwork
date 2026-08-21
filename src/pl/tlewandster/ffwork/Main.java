@@ -64,25 +64,31 @@ public class Main {
     }
 
     private static void handleInvoice() {
-        System.out.println("Numer rezerwacji: ");
+        System.out.println("WYSTAW FAKTURĘ");
+        System.out.print("Numer rezerwacji: ");
         String bookingId = scanner.nextLine();
         Booking book = bookings.findById(bookingId).orElseThrow(() -> new IllegalArgumentException("Rezerwacja nie znaleziona"));
         Invoice invoice = new Invoice();
         invoice.toInvoice(book);
+        printAck("Zafakturowano");
     }
 
     private static void handlePay() {
-        System.out.println("Numer rezerwacji: ");
+        System.out.println("DOKONAJ PŁATNOŚCI");
+        System.out.print("Numer rezerwacji: ");
         String bookingId = scanner.nextLine();
-        System.out.println("Cztery ostatnie numery karty: ");
+        System.out.print("Cztery ostatnie numery karty: ");
         String last4 = scanner.nextLine();
         Booking book = bookings.findById(bookingId).orElseThrow(() -> new IllegalArgumentException("Rezerwacja nie znaleziona"));
         Payment payment = new CardPayment(book.getId(), book.getCalculatedPrice(), last4);
+        printAck("Zapłacono. Oczekiwanie na potwierdzenie płatności...");
         payment.capture();
+        printAck("Płatność potwierdzona");
     }
 
     private static void handleSetPricing() {
-        System.out.println("Polityka cen S-Standard / H - Happy Hours");
+        System.out.println("USTAW POLITYKĘ CEN");
+        System.out.print("S - Standard / H - Happy Hours");
         String pricingPolicy = scanner.nextLine();
         if (pricingPolicy.equalsIgnoreCase("s")) {
             service.setPricingPolicy(new StandardPricing());
@@ -91,6 +97,7 @@ public class Main {
         } else {
             throw new IllegalArgumentException("An invalid value was entered");
         }
+        printAck("Zmieniono politykę cen");
     }
 
     private static void handleListBookings() {
