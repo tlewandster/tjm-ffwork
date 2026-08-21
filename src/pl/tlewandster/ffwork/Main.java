@@ -1,5 +1,6 @@
 package pl.tlewandster.ffwork;
 
+import pl.tlewandster.ffwork.billing.Invoice;
 import pl.tlewandster.ffwork.domain.*;
 import pl.tlewandster.ffwork.payment.CardPayment;
 import pl.tlewandster.ffwork.payment.Payment;
@@ -49,6 +50,7 @@ public class Main {
                     case 12 -> handleListBookings();
                     case 13 -> handleSetPricing();
                     case 14 -> handlePay();
+                    case 15 -> handleInvoice();
                     default -> printError("Błędna komenda");
                 }
             } catch (Exception e) {
@@ -56,6 +58,14 @@ public class Main {
             }
         }
         scanner.close();
+    }
+
+    private static void handleInvoice() {
+        System.out.println("Numer rezerwacji: ");
+        String bookingId = scanner.nextLine();
+        Booking book = bookings.findById(bookingId).orElseThrow(() -> new IllegalArgumentException("Rezerwacja nie znaleziona"));
+        Invoice invoice = new Invoice();
+        invoice.toInvoice(book);
     }
 
     private static void handlePay() {
