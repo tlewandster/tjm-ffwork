@@ -22,6 +22,9 @@ public class Main {
     static final PricingPolicy pricingPolicy = new StandardPricing();
     static final BookingService service = new BookingService(users, resources, bookings, pricingPolicy);
     static final Scanner scanner = new Scanner(System.in);
+    public static final String GREEN = "\u001B[32m";
+    public static final String RED = "\u001B[31m";
+    public static final String RESET = "\u001B[0m";
 
     public static void main() {
 
@@ -199,9 +202,16 @@ public class Main {
 
     private static void printError(String text) {
         System.out.println();
-        System.out.println("\u001B[31m" + "BŁĄD: " + text + "\u001B[0m");
+        System.out.println(RED + "BŁĄD: " + text + RESET);
         System.out.println();
     }
+
+    private static void printAck(String text) {
+        System.out.println();
+        System.out.println(GREEN + "OK: " + text + RESET);
+        System.out.println();
+    }
+
 
     private static void showHelp() {
         System.out.println("""
