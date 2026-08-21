@@ -1,6 +1,7 @@
 package pl.tlewandster.ffwork;
 
 import pl.tlewandster.ffwork.domain.*;
+import pl.tlewandster.ffwork.pricing.HappyHoursPricing;
 import pl.tlewandster.ffwork.pricing.PricingPolicy;
 import pl.tlewandster.ffwork.pricing.StandardPricing;
 import pl.tlewandster.ffwork.repo.*;
@@ -43,6 +44,7 @@ public class Main {
                     case 10 -> handleConfirm();
                     case 11 -> handleCansel();
                     case 12 -> handleListBookings();
+                    case 13 -> handleSetPricing();
                     default -> printError("Błędna komenda");
                 }
             } catch (Exception e) {
@@ -50,6 +52,18 @@ public class Main {
             }
         }
         scanner.close();
+    }
+
+    private static void handleSetPricing() {
+        System.out.println("Polityka cen S-Standard / H - Happy Hours");
+        String pricingPolicy = scanner.nextLine();
+        if (pricingPolicy.equalsIgnoreCase("s")){
+            service.setPricingPolicy(new StandardPricing());
+        } else if (pricingPolicy.equalsIgnoreCase("h")) {
+            service.setPricingPolicy(new HappyHoursPricing());
+        } else{
+            throw new IllegalArgumentException("An invalid value was entered");
+        }
     }
 
     private static void handleListBookings() {
