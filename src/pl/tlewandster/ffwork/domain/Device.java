@@ -20,7 +20,7 @@ public class Device extends Resource {
 
     @Override
     public String toString() {
-        return "Device{" + "quantity=" + quantity + "} " + super.toString();
+        return "Nazwa: " + this.getName() + ", ilość: " + this.quantity + ", stawka za godzinę: " + this.hourlyRate();
     }
 
     public int getQuantity() {

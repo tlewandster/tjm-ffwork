@@ -16,7 +16,7 @@ public class Desk extends Resource {
 
     @Override
     public String toString() {
-        return "Desk{" + "type=" + type + "} " + super.toString();
+        return "Nazwa: " + this.getName() + ", typ: " + this.type + ", stawka za godzinę: " + this.hourlyRate();
     }
 
     @Override
@@ -27,7 +27,7 @@ public class Desk extends Resource {
     @Override
     public String describe() {
         return String.format("""
-                Nazwa: Biurko / %s
+                Nazwa: Stanowisko / %s
                 Typ biurka: %s
                 Stawka za godzinę: %s
                 """, this.getName(), this.type, this.hourlyRate());

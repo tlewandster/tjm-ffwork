@@ -139,48 +139,55 @@ public class Main {
     private static void handlListResources() {
         System.out.println("LISTA ZASOBÓW:\n");
         resources.findAll().forEach(resource -> System.out.println(resource.describe()));
-        System.out.println("-".repeat(20));
     }
 
     private static void nandleAddDevice() {
-        System.out.println("Nazwa urządzenia: ");
+        System.out.println("DODAJ URZĄDZENIE");
+        System.out.print("Nazwa urządzenia: ");
         String name = scanner.nextLine();
-        System.out.println("Ilość: ");
+        System.out.print("Ilość: ");
         int quantity = scanner.nextInt();
         scanner.nextLine();
-        System.out.println("Cena za godz.: ");
+        System.out.print("Cena za godz.: ");
         int customHourlyRate = scanner.nextInt();
         scanner.nextLine();
-        resources.add((new Device(name, quantity, customHourlyRate)));
+        Device device = new Device(name, quantity, customHourlyRate);
+        resources.add(device);
+        printAck("Dodano nowe urządzenie:\n" + device);
     }
 
     private static void handleAddDesk() {
-        System.out.println("Nazwa biurka: ");
+        System.out.println("DODAJ STANOWISKO");
+        System.out.print("Nazwa stanowiska: ");
         String name = scanner.nextLine();
-        System.out.println("Typ: ");
+        System.out.print("Typ: ");
         String type = scanner.nextLine();
-        System.out.println("Cena za godz.: ");
+        System.out.print("Cena za godz.: ");
         int customHourlyRate = scanner.nextInt();
         scanner.nextLine();
-        resources.add(new Desk(name, type, customHourlyRate));
+        Desk desk = new Desk(name, type, customHourlyRate);
+        resources.add(desk);
+        printAck("Dodano nowe stanowisko:\n" + desk);
     }
 
     private static void handleAddRoom() {
-        System.out.println("Nazwa sali: ");
+        System.out.println("DODAJ SALĘ");
+        System.out.print("Nazwa sali: ");
         String name = scanner.nextLine();
-        System.out.println("Ilość miejsc: ");
+        System.out.print("Ilość miejsc: ");
         int seats = scanner.nextInt();
         scanner.nextLine();
-        System.out.println("Cena za godz.: ");
+        System.out.print("Cena za godz.: ");
         int customHourlyRate = scanner.nextInt();
         scanner.nextLine();
-        resources.add(new Room(name, seats, customHourlyRate));
+        Room room = new Room(name, seats, customHourlyRate);
+        resources.add(room);
+        printAck("Dodano nową salę:\n" + room);
     }
 
     private static void handleListUsers() {
         System.out.println("LISTA UŻYTKOWNIKÓW:\n");
         users.findAll().forEach(System.out::println);
-        System.out.println("-".repeat(20));
     }
 
     private static void handleAddCompanyUser() {
@@ -193,7 +200,7 @@ public class Main {
         String taxId = scanner.nextLine();
         CompanyUser companyUser = new CompanyUser(email, companyName, taxId);
         users.add(companyUser);
-        printAck("Dodano nową firmę:\n"+ companyUser);
+        printAck("Dodano nową firmę:\n" + companyUser);
     }
 
     private static void handleAddIndividualUser() {
@@ -204,7 +211,7 @@ public class Main {
         String fullName = scanner.nextLine();
         IndividualUser individualUser = new IndividualUser(email, fullName);
         users.add(individualUser);
-        printAck("Dodano nowego użytkownika indywidualnego:\n"+ individualUser);
+        printAck("Dodano nowego użytkownika indywidualnego:\n" + individualUser);
 
     }
 

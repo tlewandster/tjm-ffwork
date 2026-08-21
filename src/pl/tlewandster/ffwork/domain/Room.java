@@ -31,7 +31,7 @@ public class Room extends Resource {
 
     @Override
     public String toString() {
-        return "Room{" + "seats=" + seats + ", equipment=" + equipment + "} " + super.toString();
+        return "Nazwa: " + this.getName() + ", ilość miejsc: " + this.seats + ", wyposażenie: " + (this.equipment == null ? "brak" : this.equipment) + ", stawka za godzinę: " + this.hourlyRate();
     }
 
     @Override
