@@ -88,7 +88,7 @@ public class Main {
 
     private static void handleSetPricing() {
         System.out.println("USTAW POLITYKĘ CEN");
-        System.out.print("S - Standard / H - Happy Hours");
+        System.out.print("S - Standard / H - Happy Hours: ");
         String pricingPolicy = scanner.nextLine();
         if (pricingPolicy.equalsIgnoreCase("s")) {
             service.setPricingPolicy(new StandardPricing());
