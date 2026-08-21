@@ -1,6 +1,8 @@
 package pl.tlewandster.ffwork;
 
 import pl.tlewandster.ffwork.domain.*;
+import pl.tlewandster.ffwork.payment.CardPayment;
+import pl.tlewandster.ffwork.payment.Payment;
 import pl.tlewandster.ffwork.pricing.HappyHoursPricing;
 import pl.tlewandster.ffwork.pricing.PricingPolicy;
 import pl.tlewandster.ffwork.pricing.StandardPricing;
@@ -8,6 +10,7 @@ import pl.tlewandster.ffwork.repo.*;
 import pl.tlewandster.ffwork.service.BookingService;
 
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Main {
@@ -45,6 +48,7 @@ public class Main {
                     case 11 -> handleCansel();
                     case 12 -> handleListBookings();
                     case 13 -> handleSetPricing();
+                    case 14 -> handlePay();
                     default -> printError("Błędna komenda");
                 }
             } catch (Exception e) {
@@ -54,14 +58,24 @@ public class Main {
         scanner.close();
     }
 
+    private static void handlePay() {
+        System.out.println("Numer rezerwacji: ");
+        String bookingId = scanner.nextLine();
+        System.out.println("Cztery ostatnie numery karty: ");
+        String last4 = scanner.nextLine();
+        Booking book = bookings.findById(bookingId).orElseThrow(() -> new IllegalArgumentException("Rezerwacja nie znaleziona"));
+        Payment payment = new CardPayment(book.getId(), book.getCalculatedPrice(), last4);
+        payment.capture();
+    }
+
     private static void handleSetPricing() {
         System.out.println("Polityka cen S-Standard / H - Happy Hours");
         String pricingPolicy = scanner.nextLine();
-        if (pricingPolicy.equalsIgnoreCase("s")){
+        if (pricingPolicy.equalsIgnoreCase("s")) {
             service.setPricingPolicy(new StandardPricing());
         } else if (pricingPolicy.equalsIgnoreCase("h")) {
             service.setPricingPolicy(new HappyHoursPricing());
-        } else{
+        } else {
             throw new IllegalArgumentException("An invalid value was entered");
         }
     }
