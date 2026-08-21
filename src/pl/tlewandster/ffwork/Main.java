@@ -11,7 +11,6 @@ import pl.tlewandster.ffwork.repo.*;
 import pl.tlewandster.ffwork.service.BookingService;
 
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.Scanner;
 
 public class Main {
@@ -49,7 +48,7 @@ public class Main {
                     case 8 -> handleBookStartEnd();
                     case 9 -> handleBookStartDuration();
                     case 10 -> handleConfirm();
-                    case 11 -> handleCansel();
+                    case 11 -> handleCancel();
                     case 12 -> handleListBookings();
                     case 13 -> handleSetPricing();
                     case 14 -> handlePay();
@@ -97,43 +96,50 @@ public class Main {
     private static void handleListBookings() {
         System.out.println("LISTA REZERWACJI:\n");
         bookings.findAll().forEach(System.out::println);
-        System.out.println("-".repeat(20));
     }
 
-    private static void handleCansel() {
-        System.out.println("Numer rezerwacji: ");
+    private static void handleCancel() {
+        System.out.println("POTWIERDŹ REZERWACJĘ");
+        System.out.print("Numer rezerwacji: ");
         String bookingId = scanner.nextLine();
         service.cancel(bookingId);
+        printAck("Rezerwacja " + bookingId + " anulowana");
     }
 
     private static void handleConfirm() {
-        System.out.println("Numer rezerwacji: ");
+        System.out.println("POTWIERDŹ REZERWACJĘ");
+        System.out.print("Numer rezerwacji: ");
         String bookingId = scanner.nextLine();
         service.confirm(bookingId);
+        printAck("Rezerwacja " + bookingId + " potwierdzona");
     }
 
     private static void handleBookStartDuration() {
-        System.out.println("Email: ");
+        System.out.println("ZRÓB REZERWACJĘ");
+        System.out.print("Email: ");
         String userEmail = scanner.nextLine();
-        System.out.println("Nazwa zasobu: ");
+        System.out.print("Nazwa zasobu: ");
         String resourceName = scanner.nextLine();
-        System.out.println("Od (rrrr-mm-ddThh:mm): ");
+        System.out.print("Od (rrrr-mm-ddThh:mm): ");
         String startIso = scanner.nextLine();
-        System.out.println("Okres czasu w minutach: ");
+        System.out.print("Okres czasu w minutach: ");
         int durationMinutes = scanner.nextInt();
-        service.book(userEmail, resourceName, startIso, durationMinutes);
+        Booking book = service.book(userEmail, resourceName, startIso, durationMinutes);
+        printAck("Dodano rezerwację:\n" + book);
     }
 
     private static void handleBookStartEnd() {
-        System.out.println("Email: ");
+        System.out.println("ZRÓB REZERWACJĘ");
+        System.out.print("Email: ");
         String userEmail = scanner.nextLine();
-        System.out.println("Nazwa zasobu: ");
+        System.out.print("Nazwa zasobu: ");
         String resourceName = scanner.nextLine();
-        System.out.println("Od (rrrr-mm-ddThh:mm): ");
+        System.out.print("Od (rrrr-mm-ddThh:mm): ");
         String startIso = scanner.nextLine();
-        System.out.println("Do (rrrr-mm-ddThh:mm): ");
+        System.out.print("Do (rrrr-mm-ddThh:mm): ");
         String endIso = scanner.nextLine();
-        service.book(userEmail, resourceName, startIso, endIso);
+        Booking book = service.book(userEmail, resourceName, startIso, endIso);
+        printAck("Dodano rezerwację:\n" + book);
     }
 
     private static void handlListResources() {
@@ -244,15 +250,15 @@ public class Main {
                   6 - ADD_DEVICE <name> <quantity> <hourlyRate>
                   7 - LIST_RESOURCES [TYPE=<ROOM|DESK|DEVICE>]
                 Rezerwacje:
-                  8 - BOOK <userEmail> <resourceName> <startIso> <endIso|durationMinutes>
-                  9 - CONFIRM <bookingId>
-                  10 - CANCEL <bookingId>
-                  11 - LIST_BOOKINGS [USER=<email>] [RESOURCE=<name>] [STATUS=<PENDING|CONFIRMED|CANCELLED|COMPLETED>]
+                  8 - BOOK <userEmail> <resourceName> <startIso> <endIso>>
+                  9 - BOOK <userEmail> <resourceName> <startIso> <durationMinutes>
+                  10 - CONFIRM <bookingId>
+                  11 - CANCEL <bookingId>
+                  12 - LIST_BOOKINGS [USER=<email>] [RESOURCE=<name>] [STATUS=<PENDING|CONFIRMED|CANCELLED|COMPLETED>]
                 Polityki cen:
-                  12 - SET_PRICING STANDARD|HAPPY_HOURS
+                  13 - SET_PRICING STANDARD|HAPPY_HOURS
                 Płatności / Faktury:
-                  13 - PAY <bookingId> CARD <last4>
-                  14 - PAY <bookingId> WALLET
+                  14 - PAY <bookingId> CARD <last4>
                   15 - INVOICE <bookingId>
                 Wyjście:
                   0 - QUIT

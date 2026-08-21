@@ -69,7 +69,7 @@ public class Booking {
 
     @Override
     public String toString() {
-        return "Booking{" + "start=" + start + ", end=" + end + ", id='" + id + '\'' + ", user=" + user + ", resource=" + resource + ", status=" + status + ", calculatedPrice=" + calculatedPrice + ", payment=" + payment + '}';
+        return "Od: " + start + ", do: " + end + ", id: " + id + "\nUżytkownik: " + user + "\nZasób: " + resource + "\nStatus: " + status + ", cena: " + calculatedPrice + ", płatność: " + payment;
     }
 
     public long durationMinutes() {
