@@ -16,7 +16,7 @@ public class CompanyUser extends User {
 
     @Override
     public String toString() {
-        return String.format("%s (%s) NIP: %S", super.getDisplayName(), super.getEmail(), this.taxID);
+        return String.format("%s (%s) NIP:%S", super.getDisplayName(), super.getEmail(), this.taxID);
     }
 
     private boolean isValidTaxId(String taxID) {

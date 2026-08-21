@@ -33,7 +33,7 @@ public class Main {
 
         while (isRunning) {
             showHelp();
-            System.out.println(">>>");
+            System.out.print(">>> ");
             int command = scanner.nextInt();
             scanner.nextLine();
             try {
@@ -60,6 +60,7 @@ public class Main {
                 printError(e.getMessage());
             }
         }
+        printAck("Dziękujemy za skorzystanie z tego świetnego, dopracowanego, nie mającego sobie równych programu. Bye.");
         scanner.close();
     }
 
@@ -183,21 +184,28 @@ public class Main {
     }
 
     private static void handleAddCompanyUser() {
-        System.out.println("Email:");
+        System.out.println("DODAJ FIRMĘ");
+        System.out.print("Email: ");
         String email = scanner.nextLine();
-        System.out.println("Nazwa firmy:");
+        System.out.print("Nazwa firmy: ");
         String companyName = scanner.nextLine();
-        System.out.println("NIP:");
+        System.out.print("NIP: ");
         String taxId = scanner.nextLine();
-        users.add(new CompanyUser(email, companyName, taxId));
+        CompanyUser companyUser = new CompanyUser(email, companyName, taxId);
+        users.add(companyUser);
+        printAck("Dodano nową firmę:\n"+ companyUser);
     }
 
     private static void handleAddIndividualUser() {
-        System.out.println("Email:");
+        System.out.println("DODAJ UŻYTKOWNIKA");
+        System.out.print("Email: ");
         String email = scanner.nextLine();
-        System.out.println("Imię i nazwisko:");
+        System.out.print("Imię i nazwisko: ");
         String fullName = scanner.nextLine();
-        users.add(new IndividualUser(email, fullName));
+        IndividualUser individualUser = new IndividualUser(email, fullName);
+        users.add(individualUser);
+        printAck("Dodano nowego użytkownika indywidualnego:\n"+ individualUser);
+
     }
 
     private static void printError(String text) {
