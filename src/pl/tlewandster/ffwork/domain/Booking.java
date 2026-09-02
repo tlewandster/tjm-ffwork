@@ -85,6 +85,6 @@ public class Booking {
 
     @Override
     public String toString() {
-        return "Od: " + start + ", do: " + end + ", id: " + id + "\nUżytkownik: " + user + "\nZasób: " + resource + "\nStatus: " + status + ", cena: " + calculatedPrice + ", płatność: " + payment;
+        return "Start: " + start + ", End: " + end + ", id: " + id + "\nUser: " + user + "\nResource: " + resource + "\nStatus: " + status + ", price: " + calculatedPrice + ", payment: " + payment;
     }
 }

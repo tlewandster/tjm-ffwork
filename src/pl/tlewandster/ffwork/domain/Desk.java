@@ -22,15 +22,15 @@ public class Desk extends Resource {
     @Override
     public String describe() {
         return String.format("""
-                Nazwa: Stanowisko / %s
-                Typ biurka: %s
-                Stawka za godzinę: %s
+                Desk name:  %s
+                Desk type: %s
+                Hourly rate: %s
                 """, this.getName(), this.type, this.hourlyRate());
     }
 
     @Override
     public String toString() {
-        return "Nazwa: " + this.getName() + ", typ: " + this.type + ", stawka za godzinę: " + this.hourlyRate();
+        return "Name: " + this.getName() + ", type: " + this.type + ", hourly rate: " + this.hourlyRate();
     }
 
     public enum DeskType {

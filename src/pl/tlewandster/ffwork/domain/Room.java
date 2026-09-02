@@ -32,10 +32,10 @@ public class Room extends Resource {
     @Override
     public String describe() {
         return String.format("""
-                Nazwa: Sala / %s
-                Ilość miejsc: %d
-                Wyposażenie: %s
-                Stawka za godzinę: %s
+                Room name: %s
+                Number of seats: %d
+                Equipment: %s
+                Hourly rate: %s
                 """, this.getName(), this.seats, this.showEquipment(), this.hourlyRate());
     }
 
@@ -46,7 +46,7 @@ public class Room extends Resource {
 
     private String showEquipment() {
         if (equipment == null) {
-            return "brak";
+            return "no additional equipment";
         } else {
             return equipment.toString();
         }
@@ -54,6 +54,6 @@ public class Room extends Resource {
 
     @Override
     public String toString() {
-        return "Nazwa: " + this.getName() + ", ilość miejsc: " + this.seats + ", wyposażenie: " + (this.equipment == null ? "brak" : this.equipment) + ", stawka za godzinę: " + this.hourlyRate();
+        return "Name: " + this.getName() + ", number of seats: " + this.seats + ", equipment: " + (this.equipment == null ? "no equipment" : this.equipment) + ", hourly rate: " + this.hourlyRate();
     }
 }

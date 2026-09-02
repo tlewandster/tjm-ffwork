@@ -30,14 +30,14 @@ public class Device extends Resource {
     @Override
     public String describe() {
         return String.format("""
-                Nazwa: Urządzenie / %s
-                Ilość urządzeń: %d
-                Stawka za godzinę: %s
+                Device name: %s
+                Number of devices: %d
+                Hourly rate: %s
                 """, this.getName(), this.quantity, this.hourlyRate());
     }
 
     @Override
     public String toString() {
-        return "Nazwa: " + this.getName() + ", ilość: " + this.quantity + ", stawka za godzinę: " + this.hourlyRate();
+        return "Name: " + this.getName() + ", quantity: " + this.quantity + ", hourly rate: " + this.hourlyRate();
     }
 }

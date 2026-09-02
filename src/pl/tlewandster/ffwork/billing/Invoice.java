@@ -14,7 +14,7 @@ public class Invoice implements Billable {
     private String itemDescription;
 
     public Invoice toInvoice(Booking booking) {
-        String invoiceDescription = "Rezerwacja " + booking.getResource().getName() + " " + booking.getStart() + "-" + booking.getEnd();
+        String invoiceDescription = "Booking " + booking.getResource().getName() + " " + booking.getStart() + "-" + booking.getEnd();
         this.invoiceNumber = booking.getId();
         this.issueDate = LocalDateTime.now();
         this.buyer = booking.getUser();

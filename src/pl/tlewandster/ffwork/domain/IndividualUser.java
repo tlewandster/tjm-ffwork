@@ -28,6 +28,6 @@ public class IndividualUser extends User {
 
     @Override
     public String toString() {
-        return String.format("%s (%s) PESEL: %s", super.getDisplayName(), super.getEmail(), this.pesel.equals("00000000000") ? "brak danych" : this.pesel);
+        return String.format("%s (%s) PESEL: %s", super.getDisplayName(), super.getEmail(), this.pesel.equals("00000000000") ? "no data available" : this.pesel);
     }
 }
