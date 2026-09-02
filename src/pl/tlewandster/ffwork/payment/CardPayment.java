@@ -3,14 +3,14 @@ package pl.tlewandster.ffwork.payment;
 import pl.tlewandster.ffwork.money.Money;
 
 public class CardPayment extends Payment {
-    private String last4;
+    private final String fourLastCardNumbers;
 
-    public CardPayment(String paymentId, Money amount, String last4) {
+    public CardPayment(String paymentId, Money amount, String fourLastCardNumbers) {
         super(paymentId, amount);
-        if (!isValidCardNumber(last4)) {
+        if (!isValidCardNumber(fourLastCardNumbers)) {
             throw new IllegalArgumentException("Card number is not valid");
         }
-        this.last4 = last4;
+        this.fourLastCardNumbers = fourLastCardNumbers;
     }
 
     private boolean isValidCardNumber(String last4) {
@@ -24,6 +24,6 @@ public class CardPayment extends Payment {
 
     @Override
     public String toString() {
-        return "CardPayment{" + "last4='" + last4 + '\'' + "} " + super.toString();
+        return "CardPayment{" + "fourLastCardNumbers='" + fourLastCardNumbers + '\'' + "} " + super.toString();
     }
 }
