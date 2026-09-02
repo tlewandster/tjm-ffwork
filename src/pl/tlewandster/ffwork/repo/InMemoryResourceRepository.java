@@ -14,7 +14,7 @@ public class InMemoryResourceRepository implements ResourceRepository {
 
     @Override
     public void add(Resource resource) {
-        if (findByName(resource.getName()).isPresent()) {
+        if (isResourceIntoRepository(resource)) {
             throw new IllegalArgumentException("Resource with name " + resource.getName() + " already exists");
         }
         resources.add(resource);
@@ -30,5 +30,9 @@ public class InMemoryResourceRepository implements ResourceRepository {
     @Override
     public List<Resource> findAll() {
         return List.copyOf(resources);
+    }
+
+    private boolean isResourceIntoRepository(Resource resource) {
+        return findByName(resource.getName()).isPresent();
     }
 }

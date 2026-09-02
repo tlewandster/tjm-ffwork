@@ -14,7 +14,7 @@ public final class InMemoryUserRepository implements UserRepository {
 
     @Override
     public void add(User user) {
-        if (findByEmail(user.getEmail()).isPresent()) {
+        if (isUserIntoRepository(user)) {
             throw new IllegalArgumentException("User with email " + user.getEmail() + " already exists");
         }
         users.add(user);
@@ -30,5 +30,9 @@ public final class InMemoryUserRepository implements UserRepository {
     @Override
     public List<User> findAll() {
         return List.copyOf(users);
+    }
+
+    private boolean isUserIntoRepository(User user) {
+        return findByEmail(user.getEmail()).isPresent();
     }
 }
