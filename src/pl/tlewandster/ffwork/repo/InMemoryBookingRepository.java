@@ -20,7 +20,6 @@ public class InMemoryBookingRepository implements BookingRepository {
 
     @Override
     public Optional<Booking> findById(String id) {
-
         return bookings.stream()
                 .filter(booking -> booking.getId().equals(id))
                 .findFirst();
@@ -28,7 +27,6 @@ public class InMemoryBookingRepository implements BookingRepository {
 
     @Override
     public List<Booking> findAll() {
-
         return List.copyOf(bookings);
     }
 }
