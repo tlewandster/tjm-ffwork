@@ -1,17 +1,17 @@
 package pl.tlewandster.ffwork.domain;
 
 public class CompanyUser extends User {
-    private final String taxID;
+    private final String taxId;
 
-    public CompanyUser(String email, String companyName, String taxID) {
+    public CompanyUser(String email, String companyName, String taxId) {
         super(email, companyName);
         if (!isValidCompanyName(companyName)) {
             throw new IllegalArgumentException("Company name cannot be blank");
         }
-        if (!isValidTaxId(taxID)) {
+        if (!isValidTaxId(taxId)) {
             throw new IllegalArgumentException("Invalid taxID number");
         }
-        this.taxID = taxID;
+        this.taxId = taxId;
     }
 
     private boolean isValidCompanyName(String companyName) {
@@ -24,6 +24,6 @@ public class CompanyUser extends User {
 
     @Override
     public String toString() {
-        return String.format("%s (%s) NIP:%S", super.getDisplayName(), super.getEmail(), this.taxID);
+        return String.format("%s (%s) NIP:%S", super.getDisplayName(), super.getEmail(), this.taxId);
     }
 }
