@@ -33,10 +33,6 @@ public class Booking {
         return bookCounter;
     }
 
-    public void pend() {
-        this.status = BookingStatus.PENDING;
-    }
-
     public void confirm() {
         if (this.status != BookingStatus.PENDING) {
             throw new IllegalStateException("The booking status cannot change from " + this.status.name() + " to CONFIRMED");
