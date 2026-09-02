@@ -3,6 +3,7 @@ package pl.tlewandster.ffwork.domain;
 import pl.tlewandster.ffwork.money.Money;
 
 public class Desk extends Resource {
+    private final double BASE_RATE_PER_HOUR = 80.00;
     private final DeskType type;
 
     public Desk(String name, String type) {
@@ -16,7 +17,7 @@ public class Desk extends Resource {
 
     @Override
     protected Money baseRatePerHour() {
-        return Money.of(80);
+        return Money.of(BASE_RATE_PER_HOUR);
     }
 
     @Override
