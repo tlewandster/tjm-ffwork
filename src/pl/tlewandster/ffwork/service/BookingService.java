@@ -6,7 +6,9 @@ import pl.tlewandster.ffwork.repo.BookingRepository;
 import pl.tlewandster.ffwork.repo.ResourceRepository;
 import pl.tlewandster.ffwork.repo.UserRepository;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.chrono.ChronoLocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.stream.Collectors;
 
@@ -52,16 +54,16 @@ public class BookingService {
     private void checkForCollisions(Resource resource, LocalDateTime start, LocalDateTime end) {
         if (resource instanceof Room || resource instanceof Desk) {
             boolean isOverlapped = bookings.findAll().stream()
-                    .filter(booking -> booking.getResource().getName().equals(resource.getName()))
-                    .filter(booking -> booking.getStatus() == BookingStatus.CONFIRMED || booking.getStatus() == BookingStatus.PENDING)
-                    .anyMatch(booking -> start.isBefore(booking.getEnd()) && booking.getStart().isBefore(end));
+                    .filter(booking -> hasResource(booking,resource))
+                    .filter(this::isActive)
+                    .anyMatch(booking -> hasConflict(booking,start,end));
             if (isOverlapped) {
                 throw new IllegalArgumentException("Reservation dates cannot overlap");
             }
         }
         if (resource instanceof Device device) {
             long reservedCopies = bookings.findAll().stream()
-                    .filter(booking -> start.isBefore(booking.getEnd()) && booking.getStart().isBefore(end))
+                    .filter(booking -> hasConflict(booking,start,end))
                     .count();
             if (reservedCopies > device.getQuantity()) {
                 throw new IllegalStateException("All devices are reserved");
@@ -84,5 +86,17 @@ public class BookingService {
     public String listAll(){
         return bookings.findAll().stream()
                 .collect(Collectors.groupingBy(Booking::getId)).toString();
+    }
+
+    private boolean hasResource(Booking booking, Resource resource) {
+        return booking.getResource().getName().equals(resource.getName());
+    }
+
+    private  boolean isActive(Booking booking) {
+        return booking.getStatus() == BookingStatus.CONFIRMED || booking.getStatus() == BookingStatus.PENDING;
+    }
+
+    private boolean hasConflict(Booking booking, LocalDateTime start, LocalDateTime end) {
+        return start.isBefore(booking.getEnd()) && booking.getStart().isBefore(end);
     }
 }
