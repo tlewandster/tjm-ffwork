@@ -11,8 +11,4 @@ public interface BookingRepository {
     Optional<Booking> findById(String id);
 
     List<Booking> findAll();
-
-//    List<Booking> findByResource(Resource resource);
-
-//    List<Booking> findByUser(User user);
 }
