@@ -13,10 +13,10 @@ public abstract class Payment {
         this.status = PaymentStatus.INITIATED;
     }
 
+    public abstract void capture() throws IllegalStateException;
+
     @Override
     public String toString() {
         return "Payment{" + "status=" + status + ", amount=" + amount + ", paymentId='" + paymentId + '\'' + '}';
     }
-
-    public abstract void capture() throws IllegalStateException;
 }

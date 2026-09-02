@@ -42,8 +42,7 @@ public class MoneyTest {
         int compare = money2.compareTo(money3);
         System.out.println("compare = " + compare);
 
-        boolean equals = Money.of("0.7").add(Money.of("0.1"))
-                .equals(Money.of(0.7).add(Money.of(0.1)));
+        boolean equals = Money.of("0.7").add(Money.of("0.1")).equals(Money.of(0.7).add(Money.of(0.1)));
         System.out.println("equals = " + equals);
     }
 }

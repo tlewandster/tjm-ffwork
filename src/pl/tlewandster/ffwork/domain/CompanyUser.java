@@ -14,16 +14,16 @@ public class CompanyUser extends User {
         this.taxID = taxID;
     }
 
-    @Override
-    public String toString() {
-        return String.format("%s (%s) NIP:%S", super.getDisplayName(), super.getEmail(), this.taxID);
+    private boolean isValidCompanyName(String companyName) {
+        return companyName != null && !companyName.isBlank();
     }
 
     private boolean isValidTaxId(String taxID) {
         return taxID.matches("^\\d{3}-?\\d{3}-?\\d{2}-?\\d{2}$");
     }
 
-    private boolean isValidCompanyName(String companyName) {
-        return companyName != null && !companyName.isBlank();
+    @Override
+    public String toString() {
+        return String.format("%s (%s) NIP:%S", super.getDisplayName(), super.getEmail(), this.taxID);
     }
 }

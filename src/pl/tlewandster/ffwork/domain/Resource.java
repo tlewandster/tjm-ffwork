@@ -22,17 +22,6 @@ public abstract class Resource {
         }
     }
 
-    public String getName() {
-        return name;
-    }
-
-    protected abstract Money baseRatePerHour();
-
-    @Override
-    public String toString() {
-        return "Resource{" + "name='" + name + '\'' + ", customHourlyRate=" + customHourlyRate + '}';
-    }
-
     public abstract String describe();
 
     public Money hourlyRate() {
@@ -41,5 +30,16 @@ public abstract class Resource {
         } else {
             return this.baseRatePerHour();
         }
+    }
+
+    protected abstract Money baseRatePerHour();
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
+        return "Resource{" + "name='" + name + '\'' + ", customHourlyRate=" + customHourlyRate + '}';
     }
 }

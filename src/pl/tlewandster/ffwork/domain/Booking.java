@@ -67,11 +67,6 @@ public class Booking {
         this.id = id;
     }
 
-    @Override
-    public String toString() {
-        return "Od: " + start + ", do: " + end + ", id: " + id + "\nUżytkownik: " + user + "\nZasób: " + resource + "\nStatus: " + status + ", cena: " + calculatedPrice + ", płatność: " + payment;
-    }
-
     public long durationMinutes() {
         return Duration.between(start, end).toMinutes();
     }
@@ -86,5 +81,10 @@ public class Booking {
 
     public User getUser() {
         return user;
+    }
+
+    @Override
+    public String toString() {
+        return "Od: " + start + ", do: " + end + ", id: " + id + "\nUżytkownik: " + user + "\nZasób: " + resource + "\nStatus: " + status + ", cena: " + calculatedPrice + ", płatność: " + payment;
     }
 }

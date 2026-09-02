@@ -46,11 +46,6 @@ public record Money(BigDecimal amount) implements Comparable<Money> {
     }
 
     @Override
-    public String toString() {
-        return amount.toPlainString() + " " + CURRENCY;
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (!(o instanceof Money money)) return false;
         return amount.equals(money.amount);
@@ -59,5 +54,10 @@ public record Money(BigDecimal amount) implements Comparable<Money> {
     @Override
     public int hashCode() {
         return amount.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return amount.toPlainString() + " " + CURRENCY;
     }
 }

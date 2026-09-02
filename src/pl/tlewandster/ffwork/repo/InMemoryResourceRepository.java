@@ -2,7 +2,6 @@ package pl.tlewandster.ffwork.repo;
 
 import pl.tlewandster.ffwork.domain.Resource;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

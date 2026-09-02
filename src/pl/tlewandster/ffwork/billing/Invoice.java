@@ -13,6 +13,16 @@ public class Invoice implements Billable {
     private Money total;
     private String itemDescription;
 
+    public Invoice toInvoice(Booking booking) {
+        String invoiceDescription = "Rezerwacja " + booking.getResource().getName() + " " + booking.getStart() + "-" + booking.getEnd();
+        this.invoiceNumber = booking.getId();
+        this.issueDate = LocalDateTime.now();
+        this.buyer = booking.getUser();
+        this.total = booking.getCalculatedPrice();
+        this.itemDescription = invoiceDescription;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "Invoice{" +
@@ -22,15 +32,5 @@ public class Invoice implements Billable {
                 ", total=" + total +
                 ", itemDescription='" + itemDescription + '\'' +
                 '}';
-    }
-
-    public Invoice toInvoice(Booking booking) {
-        String invoiceDescription = "Rezerwacja " + booking.getResource().getName() + " " + booking.getStart() + "-" + booking.getEnd();
-        this.invoiceNumber = booking.getId();
-        this.issueDate = LocalDateTime.now();
-        this.buyer = booking.getUser();
-        this.total = booking.getCalculatedPrice();
-        this.itemDescription = invoiceDescription;
-        return this;
     }
 }

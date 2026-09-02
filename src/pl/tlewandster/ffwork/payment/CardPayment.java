@@ -13,9 +13,8 @@ public class CardPayment extends Payment {
         this.last4 = last4;
     }
 
-    @Override
-    public String toString() {
-        return "CardPayment{" + "last4='" + last4 + '\'' + "} " + super.toString();
+    private boolean isValidCardNumber(String last4) {
+        return last4.matches("^\\d{4}$");
     }
 
     @Override
@@ -23,7 +22,8 @@ public class CardPayment extends Payment {
         this.status = PaymentStatus.CAPTURED;
     }
 
-    private boolean isValidCardNumber(String last4) {
-        return last4.matches("^\\d{4}$");
+    @Override
+    public String toString() {
+        return "CardPayment{" + "last4='" + last4 + '\'' + "} " + super.toString();
     }
 }
