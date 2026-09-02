@@ -26,10 +26,7 @@ public class Main {
     public static final String RESET = "\u001B[0m";
 
     public static void main() {
-
-
         boolean isRunning = true;
-
         while (isRunning) {
             showHelp();
             System.out.print(">>> ");
