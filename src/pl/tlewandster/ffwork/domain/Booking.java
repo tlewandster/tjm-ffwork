@@ -33,6 +33,32 @@ public class Booking {
         return bookCounter;
     }
 
+    public void pend() {
+        this.status = BookingStatus.PENDING;
+    }
+
+    public void confirm() {
+        if (this.status != BookingStatus.PENDING) {
+            throw new IllegalStateException("The booking status cannot change from " + this.status.name() + " to CONFIRMED");
+        }
+        this.status = BookingStatus.CONFIRMED;
+    }
+
+    public void cancel() {
+        this.status = BookingStatus.CANCELLED;
+    }
+
+    public void complete() {
+        if (this.status != BookingStatus.CONFIRMED) {
+            throw new IllegalStateException("The booking status cannot change from " + this.status.name() + " to COMPLETED");
+        }
+        this.status = BookingStatus.COMPLETED;
+    }
+
+    public long durationMinutes() {
+        return Duration.between(start, end).toMinutes();
+    }
+
     public Money getCalculatedPrice() {
         return calculatedPrice;
     }
@@ -49,26 +75,12 @@ public class Booking {
         return status;
     }
 
-    public void setStatus(BookingStatus newStatus) {
-        if (this.status == BookingStatus.PENDING && newStatus == BookingStatus.COMPLETED) {
-            throw new IllegalStateException("The booking status cannot change from PENDING to COMPLETED");
-        }
-        if (this.status == BookingStatus.CONFIRMED && newStatus == BookingStatus.PENDING) {
-            throw new IllegalStateException("The booking status cannot change from CONFIRMED to PENDING");
-        }
-        this.status = newStatus;
-    }
-
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public long durationMinutes() {
-        return Duration.between(start, end).toMinutes();
     }
 
     public Resource getResource() {

@@ -70,15 +70,15 @@ public class BookingService {
     }
 
     public void confirm(String bookingId) {
-        bookings.findById(bookingId).ifPresent(booking -> booking.setStatus(BookingStatus.CONFIRMED));
+        bookings.findById(bookingId).ifPresent(Booking::confirm);
     }
 
     public void cancel(String bookingId) {
-        bookings.findById(bookingId).ifPresent(booking -> booking.setStatus(BookingStatus.CANCELLED));
+        bookings.findById(bookingId).ifPresent(Booking::cancel);
     }
 
     public void complete(String bookingId) {
-        bookings.findById(bookingId).ifPresent(booking -> booking.setStatus(BookingStatus.COMPLETED));
+        bookings.findById(bookingId).ifPresent(Booking::complete);
     }
 
     public String listAll(){
