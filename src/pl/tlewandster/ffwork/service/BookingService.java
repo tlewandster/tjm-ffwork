@@ -1,0 +1,102 @@
+package pl.tlewandster.ffwork.service;
+
+import pl.tlewandster.ffwork.domain.*;
+import pl.tlewandster.ffwork.pricing.PricingPolicy;
+import pl.tlewandster.ffwork.repo.BookingRepository;
+import pl.tlewandster.ffwork.repo.ResourceRepository;
+import pl.tlewandster.ffwork.repo.UserRepository;
+
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.chrono.ChronoLocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.stream.Collectors;
+
+public class BookingService {
+
+    private final UserRepository users;
+    private final ResourceRepository resources;
+    private final BookingRepository bookings;
+
+    public void setPricingPolicy(PricingPolicy pricingPolicy) {
+        this.pricingPolicy = pricingPolicy;
+    }
+
+    private PricingPolicy pricingPolicy;
+
+    public BookingService(UserRepository users, ResourceRepository resources, BookingRepository bookings, PricingPolicy pricingPolicy) {
+        this.users = users;
+        this.resources = resources;
+        this.bookings = bookings;
+        this.pricingPolicy = pricingPolicy;
+    }
+
+    public Booking book(String userEmail, String resourceName, String startIso, String endIso) {
+        LocalDateTime start = LocalDateTime.parse(startIso);
+        LocalDateTime end = LocalDateTime.parse(endIso);
+        User user = users.findByEmail(userEmail).orElseThrow(() -> new IllegalArgumentException("That user does not exist in the database"));
+        Resource resource = resources.findByName((resourceName)).orElseThrow(() -> new IllegalArgumentException("That resource does not exist in the database"));
+        if (start.isAfter(end)) {
+            throw new IllegalStateException("The end date cannot be before the start date");
+        }
+        checkForCollisions(resource, start, end);
+        Booking newBooking = new Booking(user, resource, start, end);
+        newBooking.setCalculatedPrice(pricingPolicy.price(newBooking));
+        newBooking.setId("BK-" + start.format(DateTimeFormatter.BASIC_ISO_DATE) + "-" + Booking.getBookCounter());
+        bookings.add(newBooking);
+        return newBooking;
+    }
+
+    public Booking book(String userEmail, String resourceName, String startIso, int durationMinutes){
+        return this.book(userEmail,resourceName,startIso,LocalDateTime.parse(startIso).plusMinutes(durationMinutes).toString());
+    }
+
+    private void checkForCollisions(Resource resource, LocalDateTime start, LocalDateTime end) {
+        if (resource instanceof Room || resource instanceof Desk) {
+            boolean isOverlapped = bookings.findAll().stream()
+                    .filter(booking -> hasResource(booking,resource))
+                    .filter(this::isActive)
+                    .anyMatch(booking -> hasConflict(booking,start,end));
+            if (isOverlapped) {
+                throw new IllegalArgumentException("Reservation dates cannot overlap");
+            }
+        }
+        if (resource instanceof Device device) {
+            long reservedCopies = bookings.findAll().stream()
+                    .filter(booking -> hasConflict(booking,start,end))
+                    .count();
+            if (reservedCopies > device.getQuantity()) {
+                throw new IllegalStateException("All devices are reserved");
+            }
+        }
+    }
+
+    public void confirm(String bookingId) {
+        bookings.findById(bookingId).ifPresent(Booking::confirm);
+    }
+
+    public void cancel(String bookingId) {
+        bookings.findById(bookingId).ifPresent(Booking::cancel);
+    }
+
+    public void complete(String bookingId) {
+        bookings.findById(bookingId).ifPresent(Booking::complete);
+    }
+
+    public String listAll(){
+        return bookings.findAll().stream()
+                .collect(Collectors.groupingBy(Booking::getId)).toString();
+    }
+
+    private boolean hasResource(Booking booking, Resource resource) {
+        return booking.getResource().getName().equals(resource.getName());
+    }
+
+    private  boolean isActive(Booking booking) {
+        return booking.getStatus() == BookingStatus.CONFIRMED || booking.getStatus() == BookingStatus.PENDING;
+    }
+
+    private boolean hasConflict(Booking booking, LocalDateTime start, LocalDateTime end) {
+        return start.isBefore(booking.getEnd()) && booking.getStart().isBefore(end);
+    }
+}
